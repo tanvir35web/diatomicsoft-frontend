@@ -34,9 +34,9 @@ export default function Home() {
   return (
     <div>
       <h1 className="text-3xl font-bold text-black p-10 text-center">Current Projects</h1>
-      <div className="flex gap-3 justify-center">
+      <div className="flex gap-3 justify-center flex-wrap container m-auto">
         {projectData.data.map((project) => (
-          <div key={project.id} className="bg-gray-200 p-3 rounded-lg">
+          <div key={project.id} className="bg-gray-200 p-3 rounded-lg max-w-72 mt-24">
             <Image src={project.coverImageURL} height={100} width={200} alt={project.title + " image"} className="w-full h-48 object-cover rounded-t-md" />
             <div className="p-4">
               <h1 className="text-2xl font-bold">{project.title}</h1>
