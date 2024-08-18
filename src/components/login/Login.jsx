@@ -24,6 +24,7 @@ const Login = () => {
       });
 
       if (response.data.message === 'User logged in successfully') {
+        document.cookie = "uidToken=" + response.data.data.token + "; path=/; Secure; SameSite=None";
         router.push("/admin")
         console.log("Login Successfully...!");
         
@@ -31,7 +32,7 @@ const Login = () => {
         setError('Authentication failed');
       }
     } catch (err) {
-      setError('Error: Could not log in');
+      setError('Server Error: Could not log in');
     }
   };
 
@@ -41,11 +42,12 @@ const Login = () => {
       <div className="w-[600px] h-[300px]">
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email Address"
             className="p-2 border rounded"
+            required
           />
           <input
             type="password"
@@ -53,8 +55,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             className="p-2 border rounded"
+            required
           />
-          <button type="submit" className="p-2 bg-blue-500 text-white rounded">
+          <button type="submit" className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 ">
             Login
           </button>
           {error && <p className="text-red-500">{error}</p>}

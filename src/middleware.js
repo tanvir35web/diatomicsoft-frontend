@@ -1,5 +1,3 @@
-// middleware.js
-
 import { NextResponse } from 'next/server';
 
 export function middleware(req) {
@@ -26,3 +24,4 @@ export function middleware(req) {
 export const config = {
   matcher: ['/admin/:path*'], // Apply middleware to /admin and any sub-routes
 };
+
