@@ -6,7 +6,7 @@ import axios from 'axios';
 export const fetchData = createAsyncThunk(
   'projects/fetchData',
   async () => {
-    const response = await axios.get('https://diatomicsoft-backend-api.vercel.app/api/clientReviews');
+    const response = await axios.get('https://diatomicsoft-backend-api.vercel.app/api/projects');
     return response.data;
   }
 );
