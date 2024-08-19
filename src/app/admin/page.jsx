@@ -16,7 +16,7 @@ export default function Admin() {
       
       <ProjectForm />
       <div className="mt-20">
-        <button onClick={handleLogout} className="bg-red-100 px-10 py-4 rounded-lg font-bold text-black hover:bg-red-900 hover:text-white duration-200">Logout</button>
+        <button onClick={handleLogout} className="bg-red-100 w-full sm:w-fit px-10 py-4 rounded-lg font-bold text-black hover:bg-red-900 hover:text-white duration-200">Logout</button>
       </div>
     </div>
   );

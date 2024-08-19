@@ -37,10 +37,13 @@ const Login = () => {
   };
 
   return (
-    <div >
-      <h1 className="text-3xl font-bold text-center pb-20">Welcome to Diatomic Soft</h1>
-      <div className="w-[600px] h-[300px]">
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+    <div className="flex items-center justify-center w-full bg-slate-200" style={{ height: `calc(100vh - 76px)` }}>
+  <div className="flex flex-col items-center justify-center w-full h-full">
+    <h1 className="text-xl md:text-3xl font-bold text-center pb-20">Welcome to Diatomic Soft</h1>
+    <div className="w-[90%] max-w-[600px] px-2">
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        <div className="flex flex-col w-full gap-1">
+          <label>Email</label>
           <input
             type="email"
             value={email}
@@ -49,6 +52,10 @@ const Login = () => {
             className="p-2 border rounded"
             required
           />
+        </div>
+
+        <div className="flex flex-col w-full gap-1">
+          <label>Password</label>
           <input
             type="password"
             value={password}
@@ -57,13 +64,17 @@ const Login = () => {
             className="p-2 border rounded"
             required
           />
-          <button type="submit" className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 ">
-            Login
-          </button>
-          {error && <p className="text-red-500">{error}</p>}
-        </form>
-      </div>
+        </div>
+
+        <button type="submit" className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          Login
+        </button>
+        {error && <p className="text-red-500">{error}</p>}
+      </form>
     </div>
+  </div>
+</div>
+
   );
 };
 
