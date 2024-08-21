@@ -31,7 +31,6 @@ const ProjectForm = () => {
     formData.append('targetedPlatform', targetedPlatform);
 
     
-
     try {
       const response = await fetch('https://diatomicsoft-backend-api.vercel.app/api/projects', {
         method: 'POST',
@@ -58,9 +57,6 @@ const ProjectForm = () => {
     }
   };
 
-
-    
- 
 
   return (
     <div className="flex items-center justify-center w-full pt-10">

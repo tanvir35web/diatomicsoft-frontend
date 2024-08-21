@@ -26,7 +26,7 @@ const Login = () => {
       if (response.data.message === 'User logged in successfully') {
         document.cookie = "uidToken=" + response.data.data.token + "; path=/; Secure; SameSite=None";
         router.push("/admin")
-        console.log("Login Successfully...!");
+      console.log("Login Successfully...!");
         
       } else {
         setError('Authentication failed');

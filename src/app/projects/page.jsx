@@ -30,7 +30,7 @@ export default function Home() {
       <div className="flex gap-6 justify-center flex-wrap container m-auto">
         { projectData && projectData.map((project) => (
           <div key={project.id} className="bg-gray-200 cursor-pointer duration-200 border hover:border-blue-600 p-3 rounded-lg w-[600px] mt-8" >
-            <Image src={project.coverImageURL} height={600} width={800} alt={project.title + " image"} className="w-full h-80 object-cover rounded-t-md" />
+            { project.coverImageURL && <Image src={project.coverImageURL} height={600} width={800} alt={project.title + " image"} className="w-full h-80 object-cover rounded-t-md" />}
             <div className="p-4">
               <h1 className="text-2xl font-bold">{project.title}</h1>
               <p className="mt-2 text-gray-600">{project.description}</p>
