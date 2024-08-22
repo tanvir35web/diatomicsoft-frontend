@@ -1,15 +1,21 @@
+import { submitProjectForm } from "@/store/slices/projectSlices";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProjectForm = () => {
+  const dispatch = useDispatch();
+  const { status, error } = useSelector((state) => state.projectForm);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("active");
+  const [projectStatus, setProjectStatus] = useState("active");
   const [usedTechnology, setUsedTechnology] = useState("");
   const [targetedPlatform, setTargetedPlatform] = useState("");
+  const [errors, setErrors] = useState({});
+
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -23,39 +29,80 @@ const ProjectForm = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('coverImage', imageFile);
+
+    if (imageFile) {
+      console.log("cover-img", imageFile);
+      
+      formData.append('coverImage', imageFile);
+    }
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('status', status);
+    formData.append('projectStatus', projectStatus);
     formData.append('usedTechnology', usedTechnology);
     formData.append('targetedPlatform', targetedPlatform);
 
-    
-    try {
-      const response = await fetch('https://diatomicsoft-backend-api.vercel.app/api/projects', {
-        method: 'POST',
-        body: formData,
-      });
 
-      if (response.ok) {
-        console.log('Form submitted successfully!');
-        // console.log('FormData:', formData);
+  //   try {
+  //     const response = await fetch('https://diatomicsoft-backend-api.vercel.app/api/projects', {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
 
-        //reset full form data
+  //     if (response.ok) {
+  //       console.log('Form submitted successfully!');
+
+  //       //reset full form data
+  //       setSelectedImage(null);
+  //       setImageFile(null);
+  //       setTitle('');
+  //       setDescription('');
+  //       setProjectStatus('active');
+  //       setUsedTechnology('');
+  //       setTargetedPlatform('');
+  //       setErrors({}); // Clear errors on successful submission
+  //     } else {
+  //       const result = await response.json();
+  //       console.error('Form submission failed!', result);
+
+  //       // Check if result.errors exists and has keys
+  //       if (result.errors && Object.keys(result.errors).length > 0) {
+  //         setErrors(result.errors);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //     setErrors({ submit: 'There was an error submitting the form. Please try again later.' });
+
+  //   }
+  // };
+
+
+      // Dispatch the submitProjectForm action
+      dispatch(submitProjectForm(formData))
+      .unwrap()
+      .then(() => {
+        // Reset form on success
         setSelectedImage(null);
         setImageFile(null);
         setTitle('');
         setDescription('');
-        setStatus('active');
+        setProjectStatus('active');
         setUsedTechnology('');
         setTargetedPlatform('');
-      } else {
-        console.error('Form submission failed!');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
+        setErrors({});
+      })
+      .catch((err) => {
+        if (err.errors && Object.keys(err.errors).length > 0) {
+          setErrors(err.errors);
+        } else {
+          setErrors({ submit: 'There was an error submitting the form. Please try again later.' });
+        }
+      });
+      console.log("formdata:", formData);
   };
+
+ 
+
 
 
   return (
@@ -87,7 +134,7 @@ const ProjectForm = () => {
                 id="coverImage"
                 name="coverImage"
                 className="absolute inset-0 opacity-0 cursor-pointer"
-                required
+                // required
                 accept="image/*"
                 onChange={handleImageChange}
               />
@@ -99,44 +146,80 @@ const ProjectForm = () => {
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="title">Title</label>
           <input
-            className="outline-none bg-gray-50 px-4 py-2 rounded-md"
+            className={`outline-none bg-gray-50 px-4 py-2 rounded-md ${errors.title ? 'border-red-500' : ''}`}
             type="text"
             id="title"
             name="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            required
+
           />
+          {errors.title && <div className="text-red-500 text-sm mt-1">{errors.title[0]}</div>}
         </div>
 
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="description">Description</label>
-          <textarea className="outline-none bg-gray-50 px-4 py-2 rounded-md h-28" id="description" name="description" value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
+          <textarea className="outline-none bg-gray-50 px-4 py-2 rounded-md h-28"
+            id="description"
+            name="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          >
+          </textarea>
+          {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description[0]}</p>}
+
         </div>
 
         <div className="flex flex-col gap-1 w-full">
-          <label className="font-semibold text-lg" htmlFor="status">Status</label>
-          <select className="outline-none bg-gray-50 px-2 py-4 rounded-md" id="status" name="status" value={status} onChange={(e) => setStatus(e.target.value)} required>
+          <label className="font-semibold text-lg" htmlFor="projectStatus">projectStatus</label>
+          <select className="outline-none bg-gray-50 px-2 py-4 rounded-md" id="projectStatus" name="projectStatus" value={projectStatus} onChange={(e) => setProjectStatus(e.target.value)} >
             <option value="active">Active</option>
             <option value="completed">Completed</option>
             <option value="incompleted">Incompleted</option>
           </select>
+          {errors.projectStatus && errors.projectStatus.map((error, index) => (
+            <p key={index} className="text-red-500 text-sm mt-1">{error}</p>
+          ))}
         </div>
 
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="usedTechnology">Used Technologies</label>
-          <input className="outline-none bg-gray-50 px-4 py-2 rounded-md" type="text" id="usedTechnology" name="usedTechnology" value={usedTechnology} onChange={(e) => setUsedTechnology(e.target.value)} required />
+          <input className="outline-none bg-gray-50 px-4 py-2 rounded-md"
+            type="text"
+            id="usedTechnology"
+            name="usedTechnology"
+            value={usedTechnology}
+            onChange={(e) => setUsedTechnology(e.target.value)}
+          />
+          {errors.usedTechnology && <p className="text-red-500 text-sm mt-1">{errors.usedTechnology[0]}</p>}
+
         </div>
 
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="targetedPlatform">Targeted Platform</label>
-          <input className="outline-none bg-gray-50 px-4 py-2 rounded-md" type="text" id="targetedPlatform" name="targetedPlatform" value={targetedPlatform} onChange={(e) => setTargetedPlatform(e.target.value)} required />
+          <input className="outline-none bg-gray-50 px-4 py-2 rounded-md"
+            type="text"
+            id="targetedPlatform"
+            name="targetedPlatform"
+            value={targetedPlatform}
+            onChange={(e) => setTargetedPlatform(e.target.value)}
+          />
+          {errors.targetedPlatform && <p className="text-red-500 text-sm mt-1">{errors.targetedPlatform[0]}</p>}
         </div>
 
-        <div className="flex gap-2 justify-between w-full mt-4">
+         <div className="flex gap-2 justify-between w-full mt-4">
           <button className="w-full hover:to-red-900 px-4 py-4 rounded-md text-white bg-red-700" type="reset">Reset</button>
-          <button className="w-full bg-blue-600 hover:to-blue-900 px-4 py-2 rounded-md text-white" type="submit">Submit</button>
+          <button
+            className="w-full bg-blue-600 hover:to-blue-900 px-4 py-2 rounded-md text-white"
+            type="submit"
+            disabled={status === 'loading'}
+          >
+            {status === 'loading' ? 'Submitting...' : 'Submit'}
+          </button>
         </div>
+        {status === "succeeded" && <p>Submitted Successfully</p>}
+        {error && <p className="text-red-600">{errors.submit}</p>}
+
 
         <Link href="/projects">
           <p className="ml-10 text-center underline text-blue-500 mt-6">Back to Projects</p>

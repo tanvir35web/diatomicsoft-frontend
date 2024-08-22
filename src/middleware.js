@@ -13,7 +13,7 @@ export function middleware(req) {
 
   // If the user is authenticated and tries to access the login page, redirect them to the dashboard
   if (isAuthenticated && isLoginPage) {
-    url.pathname = '/admin/dashboard';
+    url.pathname = '/admin';
     return NextResponse.redirect(url);
   }
 

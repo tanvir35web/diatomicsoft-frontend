@@ -11,6 +11,55 @@ export const fetchData = createAsyncThunk(
   }
 );
 
+export const submitProjectForm = createAsyncThunk(
+  'projectForm/submitProjectForm',
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        'https://diatomicsoft-backend-api.vercel.app/api/projects',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        // Return custom error message from API response
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+const projectFormSlice = createSlice({
+  name: 'projectForm',
+  initialState: {
+    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(submitProjectForm.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(submitProjectForm.fulfilled, (state) => {
+        state.status = 'succeeded';
+        state.error = null;
+      })
+      .addCase(submitProjectForm.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || action.error.message;
+      });
+  },
+});
+
+
 const projectSlice = createSlice({
   name: 'project',
   initialState: {
@@ -35,4 +84,5 @@ const projectSlice = createSlice({
   },
 });
 
+export const projectFormReducer = projectFormSlice.reducer;
 export default projectSlice.reducer;
