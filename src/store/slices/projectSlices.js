@@ -6,7 +6,7 @@ import axios from 'axios';
 export const fetchData = createAsyncThunk(
   'projects/fetchData',
   async () => {
-    const response = await axios.get('https://diatomicsoft-backend-api.vercel.app/api/projects');
+    const response = await axios.get('https://diatomicsoft-v1.vercel.app/api/projects');
     return response.data;
   }
 );
@@ -16,7 +16,7 @@ export const submitProjectForm = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'https://diatomicsoft-backend-api.vercel.app/api/projects',
+        'https://diatomicsoft-v1.vercel.app/api/projects',
         formData,
         {
           headers: {
