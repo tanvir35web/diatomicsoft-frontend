@@ -16,7 +16,7 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await axios.post('https://diatomicsoft-backend-api.vercel.app/api/login', {
+      const response = await axios.post('https://diatomicsoft-v1.vercel.app/api/login', {
         email,
         password,
       }, {
