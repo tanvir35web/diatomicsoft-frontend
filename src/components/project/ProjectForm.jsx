@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from "react-toastify";
 
 const ProjectForm = () => {
   const dispatch = useDispatch();
@@ -41,42 +42,6 @@ const ProjectForm = () => {
     formData.append('usedTechnology', usedTechnology);
     formData.append('targetedPlatform', targetedPlatform);
 
-
-  //   try {
-  //     const response = await fetch('https://diatomicsoft-backend-api.vercel.app/api/projects', {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-
-  //     if (response.ok) {
-  //       console.log('Form submitted successfully!');
-
-  //       //reset full form data
-  //       setSelectedImage(null);
-  //       setImageFile(null);
-  //       setTitle('');
-  //       setDescription('');
-  //       setProjectStatus('active');
-  //       setUsedTechnology('');
-  //       setTargetedPlatform('');
-  //       setErrors({}); // Clear errors on successful submission
-  //     } else {
-  //       const result = await response.json();
-  //       console.error('Form submission failed!', result);
-
-  //       // Check if result.errors exists and has keys
-  //       if (result.errors && Object.keys(result.errors).length > 0) {
-  //         setErrors(result.errors);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error('Error submitting form:', error);
-  //     setErrors({ submit: 'There was an error submitting the form. Please try again later.' });
-
-  //   }
-  // };
-
-
       // Dispatch the submitProjectForm action
       dispatch(submitProjectForm(formData))
       .unwrap()
@@ -90,15 +55,17 @@ const ProjectForm = () => {
         setUsedTechnology('');
         setTargetedPlatform('');
         setErrors({});
+        toast.success('Project Submitted Successfully');
       })
       .catch((err) => {
         if (err.errors && Object.keys(err.errors).length > 0) {
           setErrors(err.errors);
         } else {
           setErrors({ submit: 'There was an error submitting the form. Please try again later.' });
+          toast.error('There was an error submitting the form. Please try again');
         }
       });
-      console.log("formdata:", formData);
+
   };
 
  
@@ -175,7 +142,7 @@ const ProjectForm = () => {
           <select className="outline-none bg-gray-50 px-2 py-4 rounded-md" id="projectStatus" name="projectStatus" value={projectStatus} onChange={(e) => setProjectStatus(e.target.value)} >
             <option value="active">Active</option>
             <option value="completed">Completed</option>
-            <option value="incompleted">Incompleted</option>
+            <option value="inactive">Inactive</option>
           </select>
           {errors.projectStatus && errors.projectStatus.map((error, index) => (
             <p key={index} className="text-red-500 text-sm mt-1">{error}</p>
@@ -217,9 +184,6 @@ const ProjectForm = () => {
             {status === 'loading' ? 'Submitting...' : 'Submit'}
           </button>
         </div>
-        {status === "succeeded" && <p>Submitted Successfully</p>}
-        {error && <p className="text-red-600">{errors.submit}</p>}
-
 
         <Link href="/projects">
           <p className="ml-10 text-center underline text-blue-500 mt-6">Back to Projects</p>
