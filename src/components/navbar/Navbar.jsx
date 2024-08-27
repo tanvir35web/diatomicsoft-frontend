@@ -40,10 +40,10 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="bg-slate-800">
+      <div className="bg-slate-800 sticky top-0">
         <div className="container flex flex-row justify-between items-center text-white m-auto p-5">
           <div className="logo">
-            <p className="text-3xl font-bold">DiatomicSoft</p>
+            <p className="text-3xl font-bold">Diatomic-Soft</p>
           </div>
           <div className="hidden md:flex">
             <ul className="flex flex-row gap-10">

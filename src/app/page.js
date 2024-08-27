@@ -1,12 +1,14 @@
 "use client";
+import HeroSection from "@/components/hero/HeroSection";
+import OverViewSection from "@/components/overview/OverviewSection";
 import Link from "next/link";
 
 export default function Home() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-black p-10 text-center">Diatomic soft</h1>
-      <Link className="p-10 underline text-blue-800" href="/projects">See Projects</Link>
+     <HeroSection />
+     <OverViewSection />
     </div>
   );
 }
