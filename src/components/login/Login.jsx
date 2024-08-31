@@ -29,7 +29,7 @@ const Login = () => {
       const errorMessage = result.payload || "An error occurred during login.";
       console.log('er msg', errorMessage);
       
-      toast.error(errorMessage.message);
+      toast.error(errorMessage);
 
       // Check for specific field errors from the server response
       if (result.payload && result.payload.errors) {
@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <>
 
-      <div className="flex items-center justify-center w-full bg-slate-200" style={{ height: `calc(100vh - 76px)` }}>
+      <div className="flex items-center justify-center w-full" style={{ height: `calc(100vh - 76px)` }}>
         <div className="flex flex-col items-center justify-center w-full h-full">
           <h1 className="text-xl md:text-3xl font-bold text-center pb-20">Welcome to Diatomic Soft</h1>
           <div className="w-[90%] max-w-[600px] px-2">
@@ -60,20 +60,20 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email Address"
-                  className="p-2 border rounded"
+                  className="p-2 border !bg-gray-700 rounded outline-none border-none "
                   // required
                 />
                 {fieldErrors.email && <p className="text-red-500">{fieldErrors.email}</p>}
               </div>
 
-              <div className="flex flex-col w-full gap-1">
+              <div className="flex flex-col w-full gap-1 pb-1">
                 <label>Password</label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
-                  className="p-2 border rounded"
+                  className="p-2 border bg-gray-700 rounded outline-none border-none"
                   // required
                 />
                 {fieldErrors.password && <p className="text-red-500">{fieldErrors.password}</p>}

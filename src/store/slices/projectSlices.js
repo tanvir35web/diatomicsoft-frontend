@@ -6,17 +6,17 @@ import axios from 'axios';
 export const fetchData = createAsyncThunk(
   'projects/fetchData',
   async () => {
-    const response = await axios.get('https://diatomicsoft-v1.vercel.app/api/projects');
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/projects`);
     return response.data;
   }
 );
 
-export const submitProjectForm = createAsyncThunk(
+export const submitProjectForm = createAsyncThunk( 
   'projectForm/submitProjectForm',
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'https://diatomicsoft-v1.vercel.app/api/projects',
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/projects`,
         formData,
         {
           headers: {

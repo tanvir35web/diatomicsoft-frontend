@@ -7,8 +7,8 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        'https://diatomicsoft-v1.vercel.app/api/login',
+      const response = await axios.post(        
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/login`,
         { email, password },
         { withCredentials: true }
       );
