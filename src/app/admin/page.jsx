@@ -1,7 +1,5 @@
 "use client";
 
-import AdminLayout from "@/components/common/AdminLayout";
-import ProjectForm from "@/components/project/ProjectForm";
 import { useRouter } from "next/navigation";
 
 export default function Admin() {
@@ -13,13 +11,10 @@ export default function Admin() {
   }
 
   return (
-    <>
-      <div className="p-4">
-        <ProjectForm />
-        <div className="mt-20">
-          <button onClick={handleLogout} className="bg-red-100 w-full sm:w-fit px-10 py-4 rounded-lg font-bold text-black hover:bg-red-900 hover:text-white duration-200">Logout</button>
-        </div>
+    <div className="w-full" >
+      <div className="p-2" >
+        <button onClick={handleLogout} className="bg-red-200 w-full h-full sm:w-fit px-10 py-4 rounded-lg font-bold text-black hover:bg-red-900 hover:text-white duration-200">Logout</button>
       </div>
-    </>
+    </div>
   );
 }

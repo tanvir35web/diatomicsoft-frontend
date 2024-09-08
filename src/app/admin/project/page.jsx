@@ -1,7 +1,10 @@
+"use client"
+import ProjectForm from "@/components/project/ProjectForm";
+
 const Project = () => {
   return (
     <>
-    here is the project page from admin panal
+      <ProjectForm />
     </>
   )
 }

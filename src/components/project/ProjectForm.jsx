@@ -113,7 +113,7 @@ const ProjectForm = () => {
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="title">Title</label>
           <input
-            className={`outline-none bg-gray-700 px-4 py-2 rounded-md ${errors.title ? 'border-red-500' : ''}`}
+            className={`outline-none bg-gray-900 px-4 py-2 rounded-md ${errors.title ? 'border-red-500' : ''}`}
             type="text"
             id="title"
             name="title"
@@ -126,7 +126,7 @@ const ProjectForm = () => {
 
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="description">Description</label>
-          <textarea className="outline-none bg-gray-700 px-4 py-2 rounded-md h-28"
+          <textarea className="outline-none bg-gray-900 px-4 py-2 rounded-md h-28"
             id="description"
             name="description"
             value={description}
@@ -139,7 +139,7 @@ const ProjectForm = () => {
 
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="projectStatus">projectStatus</label>
-          <select className="outline-none bg-gray-700 px-2 py-4 rounded-md" id="projectStatus" name="projectStatus" value={projectStatus} onChange={(e) => setProjectStatus(e.target.value)} >
+          <select className="outline-none bg-gray-900 px-2 py-4 rounded-md" id="projectStatus" name="projectStatus" value={projectStatus} onChange={(e) => setProjectStatus(e.target.value)} >
             <option value="active">Active</option>
             <option value="completed">Completed</option>
             <option value="inactive">Inactive</option>
@@ -151,7 +151,7 @@ const ProjectForm = () => {
 
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="usedTechnology">Used Technologies</label>
-          <input className="outline-none bg-gray-700 px-4 py-2 rounded-md"
+          <input className="outline-none bg-gray-900 px-4 py-2 rounded-md"
             type="text"
             id="usedTechnology"
             name="usedTechnology"
@@ -164,7 +164,7 @@ const ProjectForm = () => {
 
         <div className="flex flex-col gap-1 w-full">
           <label className="font-semibold text-lg" htmlFor="targetedPlatform">Targeted Platform</label>
-          <input className="outline-none bg-gray-700 px-4 py-2 rounded-md"
+          <input className="outline-none bg-gray-900 px-4 py-2 rounded-md"
             type="text"
             id="targetedPlatform"
             name="targetedPlatform"

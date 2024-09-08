@@ -1,5 +1,5 @@
 const asideMenuItems = [
-  { label: "Dashboard", path: "/admin/dashboard" },
+  { label: "Dashboard", path: "/admin" },
   { label: "Projects", path: "/admin/project" },
   { label: "Blogs", path: "/admin/blogs" },
   { label: "Users", path: "/admin/users" },
@@ -8,8 +8,8 @@ const asideMenuItems = [
 
 const AsideMenu = () => {
   return (
-    <aside className="w-[300px] h-full border-r border-slate-700 flex-shrink-0">
-      <ul className="pt-10 px-6 flex flex-col gap-2">
+    <aside className="w-[300px] h-full border-r border-slate-800 flex-shrink-0 fixed left-0">
+      <ul className="pt-10 px-1 flex flex-col gap-2">
         {asideMenuItems.map((item) => (
           <li
             key={item.label}
