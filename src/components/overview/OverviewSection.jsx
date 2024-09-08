@@ -2,9 +2,9 @@ import Image from 'next/image';
 import React from 'react';
 
 const services = [
-  { title: 'Web Applicantion', iconSrc: '/stock-images/web-appication.png' },
-  { title: 'IOS App Development', iconSrc: '/stock-images/ios-app.png' },
-  { title: 'Android App development', iconSrc: '/stock-images/android-app-development.png' },
+  { title: 'Web Application', iconSrc: '/stock-images/web-appication.png' },
+  { title: 'IOS App', iconSrc: '/stock-images/ios-app.png' },
+  { title: 'Android App', iconSrc: '/stock-images/android-app-development.png' },
   { title: 'Modern Web Animation', iconSrc: '/stock-images/web-animation.png' },
 ]
 
@@ -13,8 +13,8 @@ const OverViewSection = () => {
     <div className="py-20">
       {/* Container for the title and description */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-lg font-medium text-gray-200">We Create World-Class</h2>
-        <h1 className="mt-2 text-4xl font-bold text-blue-600 sm:text-5xl lg:text-6xl">
+        <h2 className="text-lg font-medium text-gray-600">We Create World-Class</h2>
+        <h1 className="mt-2 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
           Digital Products
         </h1>
         <p className="mt-4 text-base text-gray-400 max-w-2xl mx-auto">
@@ -25,7 +25,7 @@ const OverViewSection = () => {
       {/* Container for service cards */}
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {services.map((service, index) => (
-          <div key={index} className="flex flex-col items-center justify-center border border-gray-700 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-slate-800 bg-opacity-65">
+          <div key={index} className="flex flex-col items-center justify-center border border-gray-800 hover:border-gray-600 cursor-pointer rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 bg-[#15161e] bg-opacity-65">
             <div className={`flex items-center justify-center w-full h-40 hover:scale-110 duration-300`}>
               <Image src={service.iconSrc} alt={service.title} width={80} height={80} />
             </div>
