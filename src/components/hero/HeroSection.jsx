@@ -4,7 +4,7 @@ import { BsRocketTakeoffFill } from "react-icons/bs";
 
 const HeroSection = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center gap-2 md:gap-10 px-1 md:px-10">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-2 md:gap-10 px-1 md:px-10">
       <div className="flex flex-col gap-4 items-center md:items-end justify-center text-right w-full h-screen px-4 md:px-8 lg:px-16">
         <div className="flex flex-col gap-4 items-center justify-center text-center">
           <h1 className="text-3xl md:text-5xl lg:text-6xl text-center md:text-right font-bold text-white">
