@@ -18,7 +18,7 @@ const OverViewSection = () => {
           Digital Products
         </h1>
         <p className="mt-4 text-base text-gray-400 max-w-2xl mx-auto">
-          Transform your business with our revolutionary software solutions! Explore our suite of exceptional products designed to skyrocket your success!
+          Transform your business with our revolutionary software solutions! Explore our suite of exceptional products designed to skyrocket your success! 
         </p>
       </div>
 
