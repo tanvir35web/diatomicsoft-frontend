@@ -1,6 +1,13 @@
 import Image from 'next/image';
 import React from 'react';
 
+const services = [
+  { title: 'Web Applicantion', iconSrc: '/stock-images/web-appication.png' },
+  { title: 'IOS App Development', iconSrc: '/stock-images/ios-app.png' },
+  { title: 'Android App development', iconSrc: '/stock-images/android-app-development.png' },
+  { title: 'Modern Web Animation', iconSrc: '/stock-images/web-animation.png' },
+]
+
 const OverViewSection = () => {
   return (
     <div className="py-20">
@@ -14,30 +21,25 @@ const OverViewSection = () => {
           Transform your business with our revolutionary software solutions! Explore our suite of exceptional products designed to skyrocket your success!
         </p>
       </div>
-      
-      {/* Container for product cards */}
+
+      {/* Container for service cards */}
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {[
-          { title: 'Laundry Flutter', bgColor: 'bg-teal-500', iconSrc: '/laundry-icon.svg' },
-          { title: 'Maditam', bgColor: 'bg-blue-500', iconSrc: '/meditation-icon.svg' },
-          { title: 'Ready ecommerce', bgColor: 'bg-pink-500', iconSrc: '/ecommerce-icon.svg' },
-          { title: 'ReadyPos', bgColor: 'bg-blue-700', iconSrc: '/pos-icon.svg' },
-        ].map((product, index) => (
-          <div key={index} className="flex flex-col items-center justify-center bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-            <div className={`flex items-center justify-center ${product.bgColor} w-full h-40`}>
-              <Image src={product.iconSrc} alt={product.title} width={80} height={80}/>
+        {services.map((service, index) => (
+          <div key={index} className="flex flex-col items-center justify-center border border-gray-700 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-slate-800 bg-opacity-65">
+            <div className={`flex items-center justify-center w-full h-40 hover:scale-110 duration-300`}>
+              <Image src={service.iconSrc} alt={service.title} width={80} height={80} />
             </div>
-            <div className="flex items-center justify-center w-full h-16 bg-white">
-              <h3 className="text-lg font-semibold text-gray-800">{product.title}</h3>
+            <div className="flex items-center justify-center w-full h-16 ">
+              <h3 className="text-lg font-semibold text-gray-300">{service.title}</h3>
             </div>
           </div>
         ))}
       </div>
-      
-      {/* Button to view all products */}
+
+      {/* Button to view all services */}
       <div className="flex justify-center mt-12">
         <button className="px-6 py-3 text-blue-600 font-medium border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300">
-          View All Products
+          View All services
         </button>
       </div>
     </div>

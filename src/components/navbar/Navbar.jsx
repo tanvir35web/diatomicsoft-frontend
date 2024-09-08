@@ -49,7 +49,7 @@ const Navbar = () => {
             <ul className="flex flex-row gap-10">
               {navItems.map((navItem, index) => (
                 <li key={index} className="   cursor-pointer">
-                  <Link href={navItem.href} className={`link ${pathname === navItem.href ? 'border-b-4 border-green-800' : 'border-transparent '} border-b-4  p-3 uppercase`}>
+                  <Link href={navItem.href} className={`link ${pathname === navItem.href ? 'border-b-4 border-blue-600' : 'border-transparent '} border-b-4  p-3 uppercase`}>
                     {navItem.label}
                   </Link>
                 </li>
@@ -106,7 +106,7 @@ const Navbar = () => {
         <ul className="flex flex-col gap-12 mt-20 ml-6">
           {navItems.map((navItem, index) => (
                 <li key={index} onClick={closeMenu} className="cursor-pointer">
-                  <Link href={navItem.href} className={`link ${pathname === navItem.href ? 'border-b-4 border-green-800 text-green-600' : 'border-transparent'} border-b-4  p-3`}>
+                  <Link href={navItem.href} className={`link ${pathname === navItem.href ? 'border-b-4 border-blue-600 text-blue-600' : 'border-transparent'} border-b-4  p-3`}>
                     {navItem.label}
                   </Link>
                 </li>
