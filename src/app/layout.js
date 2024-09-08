@@ -11,17 +11,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata = {
-//   title: "Diatomic Soft",
-//   description: "Trasted software company",
-// };
-
 export default function RootLayout({ children }) {
 
-  
+
   return (
     <html lang="en">
-      <body className={inter.className} style={{backgroundColor: '#000319', color: 'white'}}>
+      <body className={inter.className} style={{ backgroundColor: '#000319', color: 'white' }}>
         <Provider store={store} >
           <Navbar />
           {children}

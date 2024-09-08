@@ -1,5 +1,4 @@
 "use client"
-
 import { fetchData } from "@/store/slices/projectSlices";
 import Image from "next/image";
 import { useEffect } from "react";
