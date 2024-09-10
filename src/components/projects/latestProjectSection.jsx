@@ -1,5 +1,5 @@
 import useFetchProjects from "@/hooks/useFetchProjects";
-import ProjectCard from "./projectCard";
+import ProjectCard from "./ProjectCard";
 
 const LatestProjectSection = () => {
 
