@@ -18,6 +18,7 @@ const LatestProjectSection = () => {
         <div className="flex gap-20 justify-center flex-wrap container m-auto">
           {projects && projects.slice(1, 6).map((project) => (
             <ProjectCard
+            key={project.id}
               coverImage={project.coverImageURL}
               id={project.id}
               title={project.title}
