@@ -74,7 +74,7 @@ const ProjectForm = () => {
 
   return (
     <div className="flex items-center justify-center w-full pt-10">
-      <form onSubmit={handleOnSubmit} enctype="multipart/form-data"  className="flex flex-col w-[800px] p-5 md:p-8 m-auto gap-5 rounded-2xl shadow">
+      <form onSubmit={handleOnSubmit} encType="multipart/form-data"  className="flex flex-col w-[800px] p-5 md:p-8 m-auto gap-5 rounded-2xl shadow">
         <p className="text-3xl font-bold pb-2">Project Form</p>
 
         <div className="flex flex-col gap-1 w-full py-4">
