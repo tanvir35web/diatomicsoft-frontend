@@ -5,6 +5,7 @@ import { CgMoreVerticalAlt } from "react-icons/cg";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTechnology, targetedPlatform }) => {
   const [isThreeDotMenuOpen, setIsThreeDotMenuOpen] = useState(false);
@@ -25,8 +26,9 @@ const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTech
   };
 
   const handleDelete = (id) => {
-    console.log("Deleting project with id:", id); // Debugging log
-    dispatch(deleteProject(id)); // Dispatch the deleteProject thunk with the correct project ID
+    dispatch(deleteProject(id));
+    setIsThreeDotMenuOpen(false);
+    toast.success(`${title} deleted successfully`);
   };
 
   useEffect(() => {
@@ -39,9 +41,6 @@ const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTech
   useEffect(() => {
     if (error) {
       console.error("Error occurred while deleting:", error);
-    }
-    if (deleteStatus === 'succeeded') {
-      console.log("Project deleted successfully");
     }
   }, [error, deleteStatus]); // Watching for delete status and error
 

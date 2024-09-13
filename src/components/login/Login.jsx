@@ -24,12 +24,14 @@ const Login = () => {
 
     if (loginUser.fulfilled.match(result)) {
       router.push('/admin');
-      toast.success("Login Successfully...!");
+      toast.success("Login Successfully!");
     } else if (loginUser.rejected.match(result)) {
-      const errorMessage = result.payload || "An error occurred during login.";
-      console.log('er msg', errorMessage);
-      
-      toast.error(errorMessage);
+      if (error) {
+        const errorMessage = error.message || "An error occurred during login.";
+        toast.error(errorMessage);
+      }
+
+
 
       // Check for specific field errors from the server response
       if (result.payload && result.payload.errors) {
@@ -43,7 +45,7 @@ const Login = () => {
       }
     }
   };
-  
+
 
   return (
     <>
@@ -61,7 +63,7 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email Address"
                   className="p-2 border !bg-gray-700 rounded outline-none border-none "
-                  // required
+                // required
                 />
                 {fieldErrors.email && <p className="text-red-500">{fieldErrors.email}</p>}
               </div>
@@ -74,7 +76,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   className="p-2 border bg-gray-700 rounded outline-none border-none"
-                  // required
+                // required
                 />
                 {fieldErrors.password && <p className="text-red-500">{fieldErrors.password}</p>}
               </div>
