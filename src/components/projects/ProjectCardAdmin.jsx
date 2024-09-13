@@ -68,7 +68,7 @@ const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTech
           </p>
           <p className="mt-4 pb-2 text-gray-400"><strong>Platforms:</strong> {targetedPlatform}</p>
         </div>
-        <div className="absolute bottom-4 right-3 three-dot-menu">
+        <div className="absolute hover:bg-gray-800 duration-150 rounded-full p-1 bottom-4 right-3 three-dot-menu">
           <CgMoreVerticalAlt size={24} onClick={handleThreeDotMenuClick} />
           {isThreeDotMenuOpen && (
             <div className="dropdown-menu w-[150px] absolute right-2 top-full bg-slate-900 border border-gray-600 rounded-md shadow-md p-2 z-20">
