@@ -36,9 +36,6 @@ const ProjectCard = ({ coverImage, id, title, description, status, usedTechnolog
                         })}
                     </div>
 
-
-
-
                     <p className="mt-4 text-gray-400"><strong>Platforms:</strong> {targetedPlatform} </p>
                 </div>
             </div>
