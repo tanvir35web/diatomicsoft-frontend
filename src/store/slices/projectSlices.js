@@ -48,6 +48,39 @@ export const deleteProject = createAsyncThunk(
   }
 );
 
+// edit the project usin g Patch request
+
+export const editProject = createAsyncThunk(
+  'projectForm/editProject',
+  async (formData, { dispatch, rejectWithValue }) => {
+    try {
+       // Retrieve the token from cookies
+       const token = getCookieValue('uidToken');
+
+       if (!token) {
+         return rejectWithValue('Authentication token is missing.');
+       }
+      const response = await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/projects/${formData.id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Set the token in the Authorization header
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        // Return custom error message from API response
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 
 export const submitProjectForm = createAsyncThunk( 
   'projectForm/submitProjectForm',
@@ -97,7 +130,7 @@ const projectFormSlice = createSlice({
   },
 });
 
-// Slice to manage deletion state
+
 const deleteProjectSlice = createSlice({
   name: 'deleteProject',
   initialState: {
@@ -117,6 +150,30 @@ const deleteProjectSlice = createSlice({
         state.lastDeletedId = action.payload;
       })
       .addCase(deleteProject.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || action.error.message;
+      });
+  },
+});
+
+const editProjectSlice = createSlice({
+  name: 'editProject',
+  initialState: {
+    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+     .addCase(editProject.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+     .addCase(editProject.fulfilled, (state) => {
+        state.status ='succeeded';
+        state.error = null;
+      })
+     .addCase(editProject.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || action.error.message;
       });
@@ -152,5 +209,6 @@ const projectSlice = createSlice({
 
 export const projectFormReducer = projectFormSlice.reducer;
 export const deleteProjectReducer = deleteProjectSlice.reducer;
+export const editProjectReducer = editProjectSlice.reducer;
 
 export default projectSlice.reducer;

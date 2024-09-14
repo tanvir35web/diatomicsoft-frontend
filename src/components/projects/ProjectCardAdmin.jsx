@@ -1,18 +1,17 @@
-import { deleteProject } from "@/store/slices/projectSlices";
+import { useEffect, useState } from 'react';
+import { CgMoreVerticalAlt } from 'react-icons/cg';
+import { FaUserEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { deleteProject, editProject } from "@/store/slices/projectSlices";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { CgMoreVerticalAlt } from "react-icons/cg";
-import { FaUserEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import EditProjectModal from './EditProjectModal';
 
-const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTechnology, targetedPlatform }) => {
+const ProjectCardAdmin = ({ completeProject, coverImage, id, title, description, status, usedTechnology, targetedPlatform }) => {
   const [isThreeDotMenuOpen, setIsThreeDotMenuOpen] = useState(false);
-
-  // Accessing Redux state for error/status
-  const { status: deleteStatus, error } = useSelector(state => state.project); 
-  const dispatch = useDispatch(); // Moved useDispatch to the top level
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const dispatch = useDispatch();
 
   const handleThreeDotMenuClick = (e) => {
     e.preventDefault();
@@ -31,18 +30,25 @@ const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTech
     toast.success(`${title} deleted successfully`);
   };
 
+  const handleEditProject = (project) => {
+    dispatch(editProject(project));
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    setIsThreeDotMenuOpen(false);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
-  useEffect(() => {
-    if (error) {
-      console.error("Error occurred while deleting:", error);
-    }
-  }, [error, deleteStatus]); // Watching for delete status and error
 
   return (
     <>
@@ -53,8 +59,8 @@ const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTech
               src={coverImage}
               alt={`${title} image`}
               fill
-              sizes="(max-width: 768px) 100vw, 33vw"   
-              priority={true}           
+              sizes="(max-width: 768px) 100vw, 33vw"
+              priority={true}
               className="object-cover rounded-t-md"
             />
           ) : (
@@ -71,16 +77,17 @@ const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTech
         <div className="absolute hover:bg-gray-800 duration-150 rounded-full p-1 bottom-4 right-3 three-dot-menu">
           <CgMoreVerticalAlt size={24} onClick={handleThreeDotMenuClick} />
           {isThreeDotMenuOpen && (
-            <div className="dropdown-menu w-[150px] absolute right-2 top-full bg-slate-900 border border-gray-600 rounded-md shadow-md p-2 z-20">
+            <div className="dropdown-menu w-[150px] absolute right-2 top-full bg-slate-900 border border-gray-600 rounded-xl shadow-md p-2 z-20">
               <button
-                className="text-start w-full px-2 py-2 text-gray-300 hover:bg-gray-800 duration-150 rounded flex flex-row items-center gap-2"
+                onClick={openModal}
+                className="text-start w-full px-2 py-2 text-gray-300 hover:bg-gray-800 duration-150 rounded-lg flex flex-row items-center gap-2"
               >
                 <FaUserEdit />
                 Edit
               </button>
               <button
-                className="text-start w-full px-2 py-2 text-gray-300 hover:bg-red-800 duration-150 rounded flex flex-row items-center gap-2"
-                onClick={() => handleDelete(id)} // Pass the correct project ID
+                className="text-start w-full px-2 py-2 text-gray-300 hover:bg-red-800 duration-150 rounded-lg flex flex-row items-center gap-2"
+                onClick={() => handleDelete(id)}
               >
                 <MdDelete />
                 Delete
@@ -89,6 +96,13 @@ const ProjectCardAdmin = ({ coverImage, id, title, description, status, usedTech
           )}
         </div>
       </div>
+      {/* Modal component */}
+      <EditProjectModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        project={completeProject}
+        onSubmit={handleEditProject}
+      />
     </>
   );
 };

@@ -1,7 +1,7 @@
 "use client"
 
 import { configureStore } from '@reduxjs/toolkit';
-import projectsReducer, { deleteProjectReducer, projectFormReducer } from './slices/projectSlices';
+import projectsReducer, { deleteProjectReducer, projectFormReducer, updateProjectReducer } from './slices/projectSlices';
 import authReducer from './slices/authSlice';
 
 
@@ -11,6 +11,7 @@ const store = configureStore({
     project: projectsReducer,
     projectDelete: deleteProjectReducer,
     projectForm: projectFormReducer,
+    projectEdit: updateProjectReducer,
   },
 });
 
