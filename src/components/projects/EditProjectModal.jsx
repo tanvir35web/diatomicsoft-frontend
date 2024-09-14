@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 const EditProjectModal = ({ isOpen, onClose, project, onSubmit }) => {
   const [formData, setFormData] = useState({
+    id: project._id,
     title: project.title,
     description: project.description,
     targetedPlatform: project.targetedPlatform,
@@ -17,10 +18,33 @@ const EditProjectModal = ({ isOpen, onClose, project, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
-    // toast.success(`${project.title} edited successfully`);
-    onClose();
-  };
+
+    const updatedData = new FormData();
+
+    // Append all fields to FormData if you need to handle them as form data
+    updatedData.append('id', formData.id);
+    updatedData.append('title', formData.title);
+    updatedData.append('description', formData.description);
+    updatedData.append('targetedPlatform', formData.targetedPlatform);
+    updatedData.append('usedTechnology', formData.usedTechnology);
+    updatedData.append('status', formData.status);
+
+    // Debug: Check what's inside FormData
+  for (let pair of updatedData.entries()) {
+    console.log(`${pair[0]}, ${pair[1]}`);
+  }
+
+  // Call the passed onSubmit function with updated formData
+  onSubmit(updatedData)
+    .then(() => {
+      toast.success(`${formData.title} updated successfully`);
+      onClose(); // Close modal on success
+    })
+    .catch((error) => {
+      toast.error('Failed to update project.');
+      console.error(error);
+    });
+};
 
   if (!isOpen) return null;
 
@@ -28,7 +52,7 @@ const EditProjectModal = ({ isOpen, onClose, project, onSubmit }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
       <div className="bg-slate-900 p-6 rounded-lg shadow-lg max-w-2xl w-full">
         <h2 className="text-2xl mb-4">Edit Project</h2>
-        <form onSubmit={handleSubmit} encType="multipart/form-data" >
+        <form onSubmit={handleSubmit} >
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-400">Title</label>
             <input

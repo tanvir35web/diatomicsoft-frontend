@@ -54,22 +54,31 @@ export const editProject = createAsyncThunk(
   'projectForm/editProject',
   async (formData, { dispatch, rejectWithValue }) => {
     try {
+      console.log('Patch form data', formData);
+
        // Retrieve the token from cookies
        const token = getCookieValue('uidToken');
 
        if (!token) {
          return rejectWithValue('Authentication token is missing.');
        }
+
+      // Retrieve the ID from FormData
+      const projectId = formData.get('id');
+      if (!projectId) {
+        return rejectWithValue('Project ID is missing.');
+      }       
       const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/projects/${formData.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/projects/${projectId}`,
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Set the token in the Authorization header
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
           },
         }
       );
+      dispatch(fetchData());
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -85,7 +94,7 @@ export const editProject = createAsyncThunk(
 export const submitProjectForm = createAsyncThunk( 
   'projectForm/submitProjectForm',
   async (formData, { rejectWithValue }) => {
-    try {
+    try {      
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/projects`,
         formData,

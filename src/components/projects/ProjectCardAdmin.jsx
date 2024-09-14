@@ -10,7 +10,7 @@ import EditProjectModal from './EditProjectModal';
 
 const ProjectCardAdmin = ({ completeProject, coverImage, id, title, description, status, usedTechnology, targetedPlatform }) => {
   const [isThreeDotMenuOpen, setIsThreeDotMenuOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false); 
   const dispatch = useDispatch();
 
   const handleThreeDotMenuClick = (e) => {
@@ -30,9 +30,11 @@ const ProjectCardAdmin = ({ completeProject, coverImage, id, title, description,
     toast.success(`${title} deleted successfully`);
   };
 
-  const handleEditProject = (project) => {
-    dispatch(editProject(project));
+  const handleEditProject = (project) => {    
+    return dispatch(editProject(project));
   };
+
+  
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -101,7 +103,7 @@ const ProjectCardAdmin = ({ completeProject, coverImage, id, title, description,
         isOpen={isModalOpen}
         onClose={closeModal}
         project={completeProject}
-        onSubmit={handleEditProject}
+        onSubmit={handleEditProject} 
       />
     </>
   );
