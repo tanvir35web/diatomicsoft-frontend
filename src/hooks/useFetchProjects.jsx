@@ -13,8 +13,6 @@ const useFetchProjects = () => {
   }, [status, dispatch]);
 
   const projects = data?.data;  
-  console.log('projects', projects);
-
 
   return { projects, status, error };
 };
