@@ -21,14 +21,14 @@ const Blog = () => {
   const blogs = data?.data;
 
   console.log('Blogs', blogs);
-  
+
 
   return (
     <div className="p-4">
       <p className="text-3xl font-bold text-center pb-10">This is the blog section</p>
       {blogs && blogs.length > 0 ? (
         blogs.map((blog) => <div className="p-2 bg-slate-800 mb-2 rounded" key={blog.id}>{blog.title}</div>
-    )
+        )
       ) : (
         <p>No blogs available</p>
       )}
