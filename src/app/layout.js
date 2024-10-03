@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className} style={{ backgroundColor: '#000319', color: 'white' }}>
+      <body className={inter.className} style={{ backgroundColor: '#0A0A0A', color: 'white' }}>
         <Provider store={store} >
           <Navbar />
           {children}

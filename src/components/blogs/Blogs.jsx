@@ -27,9 +27,9 @@ const Blogs = () => {
 
 
     return (
-        <div className="p-4 mt-16">
+        <div className="p-0 lg:p-4 mt-16">
             <p className="text-5xl font-bold text-center pb-10">This is the blog section</p>
-            <div className="flex  justify-center gap-2"> {blogs && blogs.length > 0 ? (
+            <div className="flex justify-center gap-2 flex-wrap"> {blogs && blogs.length > 0 ? (
                 blogs.map((blog) =>
                     <BlogsCard
                         key={blog.id}
