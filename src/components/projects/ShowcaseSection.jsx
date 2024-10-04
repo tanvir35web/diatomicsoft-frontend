@@ -1,6 +1,7 @@
 // components/ShowcaseSection.js
 import { useState, useEffect } from "react";
 import useFetchProjects from "@/hooks/useFetchProjects";
+import Image from "next/image";
 
 const ShowcaseSection = () => {
     const { projects, status, error } = useFetchProjects();
@@ -23,7 +24,18 @@ const ShowcaseSection = () => {
     }, [projects, activeTab]);
 
     return (
-        <div className="container mx-auto py-12 px-4 md:px-0 text-center">
+        <div className="container mx-auto pb-2 px-4 md:px-0 text-center">
+            <div className="w-[300px] h-[300px] m-auto ">
+                <Image
+                    src="/stock-images/3d-deshboard.png"
+                    alt="rock-background-image"
+                    layout="responsive"
+                    width={300}
+                    height={300}
+                    className="object-cover"
+                />
+            </div>
+
             <h1 className="text-4xl font-bold mb-4">Start. Build. Innovate.</h1>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
                 Diatomicsoft is the trusted partner for tech innovators, managing the end-to-end process & taking you
@@ -42,7 +54,7 @@ const ShowcaseSection = () => {
                         key={project.title}
                         onClick={() => setActiveTab(project.title)}
                         className={`px-3 md:px-6 py-2 md:py-3 rounded-full font-medium text-sm lg:text-lg transition-colors duration-300 max-w-[200px] truncate ${
-                            activeTab === project.title ? "bg-blue-500 text-black" : "bg-gray-800 text-white hover:bg-gray-600"
+                            activeTab === project.title ? "bg-blue-500 text-white" : "bg-gray-800 text-white hover:bg-gray-600"
                         }`}
                     >
                         {project.title}
@@ -68,7 +80,8 @@ const ShowcaseSection = () => {
                                     return (
                                         <div key={index} className="flex gap-2 flex-wrap">
                                             {items.map((item, i) => (
-                                                <span key={i} className={`px-4 py-1 rounded-full text-white font-medium bg-opacity-50 ${tagColors[(index + i) % tagColors.length]}`}>
+                                                <span key={i}
+                                                      className={`px-4 py-1 rounded-full text-white font-medium bg-opacity-50 ${tagColors[(index + i) % tagColors.length]}`}>
                                                     {item}
                                                 </span>
                                             ))}
@@ -79,8 +92,10 @@ const ShowcaseSection = () => {
                         </div>
 
                         {/* Image */}
-                        <div className="flex justify-center w-[330px] h-[200px] md:w-[500px] lg:h-[400px] object-cover bg-gray-700 rounded-3xl opacity-50 border border-gray-600 overflow-hidden">
-                            <img src={project.coverImageURL} alt={project.title} className="w-full h-full object-cover rounded-lg shadow-lg"/>
+                        <div
+                            className="flex justify-center w-[330px] h-[200px] md:w-[500px] lg:h-[400px] object-cover bg-gray-700 rounded-3xl opacity-50 border border-gray-600 overflow-hidden">
+                            <img src={project.coverImageURL} alt={project.title}
+                                 className="w-full h-full object-cover rounded-lg shadow-lg"/>
                         </div>
                     </div>
                 )
