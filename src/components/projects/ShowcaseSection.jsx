@@ -75,7 +75,7 @@ const ShowcaseSection = () => {
             {status === 'failed' && <p>Error: {error.message}</p>}
 
             {/* Tabs */}
-            <div className="flex justify-center max-w-[890px] m-auto flex-wrap gap-2 mb-10 overflow-x-auto px-2 md:bg-gray-800 p-3 rounded-full">
+            <div className="flex justify-center max-w-[890px] m-auto flex-wrap gap-2 mb-10 md:overflow-x-auto px-2 md:bg-gray-800 p-3 rounded-full">
                 {projects && projects.slice(1, 6).map((project, index) => (
                     <button
                         key={project.title}

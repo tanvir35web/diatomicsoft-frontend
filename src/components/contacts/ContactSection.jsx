@@ -21,7 +21,7 @@ const ContactSection = () => {
 
     return (
         <section className="container mx-auto py-12 px-4 md:px-8 lg:px-16 bg-gray-900 rounded-3xl mt-10">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 px-4 md:px-[50px]">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 px-1 md:px-[50px]">
 
                 {/* Image Section */}
                 <div className="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[500px] mx-auto lg:mx-0">
@@ -36,7 +36,7 @@ const ContactSection = () => {
                 </div>
 
                 {/* Form Section */}
-                <div className="w-full max-w-[700px] shadow-lg rounded-lg p-6 md:p-8 lg:p-12">
+                <div className="w-full max-w-[700px] shadow-lg rounded-lg p-0 md:p-8 lg:p-12">
                     <h2 className="text-3xl font-bold text-center mb-6 text-white">
                         Contact Us
                     </h2>
