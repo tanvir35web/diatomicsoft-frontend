@@ -14,7 +14,7 @@ const OverViewSection = () => {
       {/* Container for the title and description */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-lg font-medium text-gray-600">We Create World-Class</h2>
-        <h1 className="mt-2 text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
+        <h1 className="mt-2 text-3xl font-bold text-white sm:text-5xl lg:text-4xl">
           Digital Products
         </h1>
         <p className="mt-4 text-base text-gray-400 max-w-2xl mx-auto">
