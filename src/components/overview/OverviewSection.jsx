@@ -10,7 +10,7 @@ const services = [
 
 const OverViewSection = () => {
   return (
-    <div className="py-20">
+    <div className="pb-10">
       {/* Container for the title and description */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-lg font-medium text-gray-600">We Create World-Class</h2>
@@ -25,22 +25,15 @@ const OverViewSection = () => {
       {/* Container for service cards */}
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {services.map((service, index) => (
-          <div key={index} className="flex flex-col items-center justify-center border border-gray-800 hover:border-gray-600 cursor-pointer rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 bg-[#15161e] bg-opacity-65">
-            <div className={`flex items-center justify-center w-full h-40 hover:scale-110 duration-300`}>
+          <div key={index} className="flex flex-col items-center justify-center border border-gray-800 hover:border-gray-600 p-4 cursor-pointer rounded-3xl shadow-lg overflow-hidden transition-shadow duration-300 bg-[#15161e] bg-opacity-65">
+            <div className={`flex items-center justify-center w-full h-32 hover:scale-110 duration-300`}>
               <Image src={service.iconSrc} alt={service.title} width={80} height={80} />
             </div>
-            <div className="flex items-center justify-center w-full h-16 ">
+            <div className="flex items-center justify-center w-full ">
               <h3 className="text-lg font-semibold text-gray-300">{service.title}</h3>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Button to view all services */}
-      <div className="flex justify-center mt-12">
-        <button className="px-6 py-3 text-blue-600 font-medium border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300">
-          View All services
-        </button>
       </div>
     </div>
   );

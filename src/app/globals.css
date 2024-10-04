@@ -50,4 +50,37 @@ input:-webkit-autofill:active{
     border-radius: 9999px;
     border: none;
   }
+
+/* Keyframes for sliding in from left and right */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Slide animations for entering content */
+.transition-container.from-left .active-tab-content {
+    animation: slideInFromLeft 0.5s ease forwards;
+}
+
+.transition-container.from-right .active-tab-content {
+    animation: slideInFromRight 0.5s ease forwards;
+}
+
   
