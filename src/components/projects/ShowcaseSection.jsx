@@ -94,8 +94,12 @@ const ShowcaseSection = () => {
                         {/* Image */}
                         <div
                             className="flex justify-center w-[330px] h-[200px] md:w-[500px] lg:h-[400px] object-cover bg-gray-700 rounded-3xl opacity-50 border border-gray-600 overflow-hidden">
-                            <img src={project.coverImageURL} alt={project.title}
-                                 className="w-full h-full object-cover rounded-lg shadow-lg"/>
+                            {project && project?.coverImageURL && (
+                                <Image src={project.coverImageURL} alt={project.title}
+                                       width={330}
+                                       height={330}
+                                       className="w-full h-full object-cover rounded-lg shadow-lg"/>
+                            )}
                         </div>
                     </div>
                 )

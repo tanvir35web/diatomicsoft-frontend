@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const DigitalProducts = () => {
     return (
         <section className="bg-blue-500 m-auto px-4 sm:px-8 lg:px-16 rounded-3xl">
@@ -19,9 +21,11 @@ const DigitalProducts = () => {
 
                 {/* Image Section */}
                 <div className="w-full max-w-[400px] sm:max-w-[500px] md:max-w-[600px] mt-8 md:mt-0">
-                    <img
+                    <Image
                         className="w-full h-auto"
                         src="/stock-images/3d-illustraton-working.png"
+                        width={400}
+                        height={300}
                         alt="3d-illustration-working"
                     />
                 </div>
