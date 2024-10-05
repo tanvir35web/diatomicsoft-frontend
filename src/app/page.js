@@ -21,7 +21,7 @@ export default function Home() {
     };
 
   return (
-      <div className="px-4">
+      <div className="px-4 font-poppins">
           <HeroSection scrollToSection={scrollToSection}/>
           <div ref={nextSectionRef} className="pt-[80px]">
               <DigitalProducts
