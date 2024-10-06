@@ -5,7 +5,7 @@ import { useSwipeable } from "react-swipeable";
 
 const ShowcaseSection = () => {
     const { projects, status, error } = useFetchProjects();
-    const [activeTab, setActiveTab] = useState(projects?.[1]?.title || null);
+    const [activeTab, setActiveTab] = useState(projects?.[0]?.title || null);
     const [activeIndex, setActiveIndex] = useState(1); // Track active index
     const [slideDirection, setSlideDirection] = useState("from-left");
 
@@ -76,7 +76,7 @@ const ShowcaseSection = () => {
 
             {/* Tabs */}
             <div className="flex justify-center max-w-[890px] m-auto flex-wrap gap-2 mb-10 md:overflow-x-auto px-2 md:bg-gray-800 p-3 rounded-full">
-                {projects && projects.slice(1, 6).map((project, index) => (
+                {projects && projects.slice(0, 5).map((project, index) => (
                     <button
                         key={project.title}
                         onClick={() => handleTabChange(project.title, index)}
