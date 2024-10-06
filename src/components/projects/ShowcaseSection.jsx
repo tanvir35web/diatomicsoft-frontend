@@ -91,7 +91,7 @@ const ShowcaseSection = () => {
 
             {/* Active Tab Content with Swipe and Slide Animation */}
             <div {...swipeHandlers} className={`transition-container ${slideDirection}`}>
-                {projects && projects.slice(1, 6).map((project) => (
+                {projects && projects.slice(0, 5).map((project) => (
                     activeTab === project.title && (
                         <div key={project.id} className="active-tab-content text-left max-w-[1100px] mx-auto flex flex-col lg:flex-row items-center lg:items-start justify-between mt-3 md:mt-20 select-none">
                             <div className="max-w-[500px] h-auto">
