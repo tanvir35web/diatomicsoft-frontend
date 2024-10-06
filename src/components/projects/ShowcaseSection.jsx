@@ -19,7 +19,7 @@ const ShowcaseSection = () => {
 
     useEffect(() => {
         if (projects && projects.length > 0 && !activeTab) {
-            setActiveTab(projects[1].title);
+            setActiveTab(projects[0].title);
         }
     }, [projects, activeTab]);
 
