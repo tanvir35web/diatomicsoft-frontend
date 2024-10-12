@@ -10,7 +10,7 @@ const ContactSection = () => {
         setIsLoading(true); // Start loading
 
         const formData = new FormData(e.target);
-        formData.append("access_key", "eb8b59c8-9da3-4358-a5ad-4227c13e3de9");
+        formData.append("access_key", process.env.NEXT_PUBLIC_CONTACT_MAIL_ACCESS_KEY);
 
         const response = await fetch("https://api.web3forms.com/submit", {
             method: "POST",

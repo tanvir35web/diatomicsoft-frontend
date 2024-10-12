@@ -80,9 +80,8 @@ const ShowcaseSection = () => {
                     <button
                         key={project.title}
                         onClick={() => handleTabChange(project.title, index)}
-                        className={`px-3 md:px-6 py-2 md:py-3 rounded-full font-medium text-sm lg:text-lg transition-colors duration-300 max-w-[250px] truncate ${
-                            activeTab === project.title ? "bg-blue-500 text-white" : "bg-transparent text-white hover:bg-gray-600"
-                        }`}
+                        className={`px-3 md:px-6 py-2 md:py-3 rounded-full font-medium text-sm lg:text-lg transition-colors duration-300 max-w-[250px] truncate ${activeTab === project.title ? "bg-blue-500 text-white" : "bg-transparent text-white hover:bg-gray-600"
+                            }`}
                     >
                         {project.title}
                     </button>
@@ -95,7 +94,7 @@ const ShowcaseSection = () => {
                     activeTab === project.title && (
                         <div key={project.id} className="active-tab-content text-left max-w-[1100px] mx-auto flex flex-col lg:flex-row items-center lg:items-start justify-between mt-3 md:mt-20 select-none">
                             <div className="max-w-[500px] h-auto">
-                                <div className="pt-10">
+                                <div className="pt-4">
                                     <h2 className="text-2xl font-bold mb-3 text-left">{project.title}</h2>
                                     <p className="text-gray-300 mb-10 text-left">{project.description}</p>
                                 </div>
@@ -108,7 +107,7 @@ const ShowcaseSection = () => {
                                             <div key={index} className="flex gap-2 flex-wrap">
                                                 {items.map((item, i) => (
                                                     <span key={i}
-                                                          className={`px-4 py-1 rounded-full text-white font-medium bg-opacity-50 ${tagColors[(index + i) % tagColors.length]}`}>
+                                                        className={`px-4 py-1 rounded-full text-white font-medium bg-opacity-50 ${tagColors[(index + i) % tagColors.length]}`}>
                                                         {item}
                                                     </span>
                                                 ))}
@@ -119,14 +118,28 @@ const ShowcaseSection = () => {
                             </div>
 
                             {/* Image */}
-                            <div className="flex justify-center w-[330px] h-[200px] md:w-[500px] lg:h-[400px] object-cover bg-gray-700 rounded-3xl opacity-50 border border-gray-600 overflow-hidden">
+                            {/* <div className="flex justify-center w-[330px] h-[200px] md:w-[500px] lg:h-[400px] object-cover bg-gray-700 rounded-3xl opacity-50 border border-gray-600 overflow-hidden">
                                 {project && project?.coverImageURL && (
                                     <Image src={project.coverImageURL} alt={project.title}
                                            width={330}
                                            height={330}
                                            className="w-full h-full object-cover rounded-lg shadow-lg"/>
                                 )}
+                            </div> */}
+
+                            <div className="flex justify-center w-full max-w-[330px] h-[200px] md:max-w-[500px] lg:h-[400px] object-cover bg-gray-700 rounded-3xl opacity-50 border border-gray-600 overflow-hidden">
+                                {project && project?.coverImageURL && (
+                                    <Image
+                                        src={project.coverImageURL}
+                                        alt={project.title}
+                                        layout="responsive" // Use responsive layout
+                                        width={330} // Original width
+                                        height={330} // Original height
+                                        className="w-full h-full object-cover rounded-lg shadow-lg"
+                                    />
+                                )}
                             </div>
+
                         </div>
                     )
                 ))}

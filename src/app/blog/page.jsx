@@ -1,11 +1,12 @@
-"use client"
+"use client";
 import BlogsCard from "@/components/blogs/BlogsCard";
 import { fetchBlogs } from "@/store/slices/blogSlices";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link"; // Import Link for navigation
 
-const Blog = () => {
+const Blogs = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { data, status, error } = useSelector((state) => state.blogs);
@@ -22,26 +23,36 @@ const Blog = () => {
 
   const blogs = data?.data;
 
-  return (
+  // Debugging: Log the blogs data
+  console.log('Blogs:', blogs);
 
+  return (
     <div>
       <p className="text-5xl font-bold text-center mt-6 pb-10">This is the blog section</p>
-      <div className="flex  justify-center gap-2"> {blogs && blogs.length > 0 ? (
-        blogs.map((blog) =>
-          <BlogsCard
-            key={blog.id}
-            bolgImage={blog.bolgImage}
-            title={blog.title}
-            description={blog.description}
-            tags={blog.tags}
-            author={blog.author}
-          />
-        )
-      ) : (
-        <p>No blogs available</p>
-      )} </div>
-    </div>
-  )
-}
+      <div className="flex justify-center gap-2 flex-wrap">
+        {blogs && blogs.length > 0 ? (
+          blogs.map((blog) => {
+            // Debugging: Log the blog ID
+            console.log('Blog ID:', blog._id);
 
-export default Blog;
+            return (
+              <Link key={blog._id} href={`/blog/${blog._id}`}>
+                <BlogsCard
+                  bolgImage={blog.bolgImage}
+                  title={blog.title}
+                  description={blog.description}
+                  tags={blog.tags}
+                  author={blog.author}
+                />
+              </Link>
+            );
+          })
+        ) : (
+          <p>No blogs available</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Blogs;
