@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "@/store/slices/blogSlices";
 import { useEffect } from "react";
 import BlogsCard from "./BlogsCard";
-import { useRouter } from "next/navigation";
+import Link from "next/link"; 
 
 const Blogs = () => {
     const dispatch = useDispatch();
@@ -25,21 +25,28 @@ const Blogs = () => {
 
     return (
         <div className="p-0 lg:p-4 mt-16">
-            <div className="flex justify-center gap-2 flex-wrap"> {blogs && blogs.length > 0 ? (
-                blogs.map((blog) =>
-                    <BlogsCard
-                        key={blog.id}
-                        bolgImage={blog.bolgImage}
-                        title={blog.title}
-                        description={blog.description}
-                        tags={blog.tags}
-                        author={blog.author}
-                    />
+            <div className="flex justify-center gap-2 flex-wrap"> 
+            {blogs && blogs.length > 0 ? (
+          blogs.map((blog) => {
+            // Debugging: Log the blog ID
+            console.log('Blog ID:', blog._id);
 
-                )
-            ) : (
-                <p>No blogs available</p>
-            )} </div>
+            return (
+              <Link key={blog._id} href={`/blog/${blog._id}`}>
+                <BlogsCard
+                  bolgImage={blog.bolgImage}
+                  title={blog.title}
+                  description={blog.description}
+                  tags={blog.tags}
+                  author={blog.author}
+                />
+              </Link>
+            );
+          })
+        ) : (
+          <p>No blogs available</p>
+        )}
+            </div>
 
         </div>
     );

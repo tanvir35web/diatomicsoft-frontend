@@ -39,12 +39,12 @@ const BlogPost = ({ params }) => {
                 <meta name="description" content={blog.description} />
             </Head>
             <div className="container m-auto mt-8 p-4">
-                <h1 className="text-4xl font-bold">{blog.title}</h1>
+                <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold">{blog.title}</h1>
                 <div className="flex justify-between mt-2" >
-                    <p className="mt-2 text-gray-400">Author: {blog.author}</p>
-                    <p className="mt-2 text-gray-400">Date: {formatDate(blog.createdAt)}</p>
+                    <p className="mt-2 text-gray-400 text-sm md:text-lg ">Author: {blog.author}</p>
+                    <p className="mt-2 text-gray-400 text-sm md:text-lg">{formatDate(blog.createdAt)}</p>
                 </div>
-                <p className="mt-10 text-justify">{blog.description}</p>
+                <p className="mt-10 text-justify text-sm md:text-lg">{blog.description}</p>
             </div>
         </>
     );

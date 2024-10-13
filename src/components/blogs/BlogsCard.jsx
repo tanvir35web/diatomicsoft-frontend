@@ -20,7 +20,7 @@ const BlogsCard = ({ bolgImage, title, description, author, tags }) => {
     }
     return (
         <>
-            <div className="bg-slate-900 p-6 m-2 rounded-lg w-full lg:w-[500px] cursor-pointer">
+            <div className="bg-slate-900 p-3 lg:p-6 m-2 rounded-lg w-[320px] lg:w-[500px] cursor-pointer">
                 <p className="text-2xl font-semibold pb-4">{title}</p>
                 <p className="text-sm pb-3 text-gray-300 text-justify">{description}</p>
                 <p className="text-sm pb-4 text-gray-300"> Author: {author}</p>

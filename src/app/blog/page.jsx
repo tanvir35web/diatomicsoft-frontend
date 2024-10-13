@@ -4,7 +4,7 @@ import { fetchBlogs } from "@/store/slices/blogSlices";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link"; // Import Link for navigation
+import Link from "next/link"; 
 
 const Blogs = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const Blogs = () => {
   return (
     <div>
       <p className="text-5xl font-bold text-center mt-6 pb-10">This is the blog section</p>
-      <div className="flex justify-center gap-2 flex-wrap">
+      <div className="flex justify-center gap-2 flex-wrap px-2">
         {blogs && blogs.length > 0 ? (
           blogs.map((blog) => {
             // Debugging: Log the blog ID
