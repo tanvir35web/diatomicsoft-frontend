@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import {toast} from "react-toastify";
 
 const ContactSection = () => {
     const [isLoading, setIsLoading] = useState(false); // For loading state
@@ -10,7 +11,8 @@ const ContactSection = () => {
         setIsLoading(true); // Start loading
 
         const formData = new FormData(e.target);
-        formData.append("access_key", process.env.NEXT_PUBLIC_CONTACT_MAIL_ACCESS_KEY);
+        // formData.append("access_key", process.env.NEXT_PUBLIC_CONTACT_MAIL_ACCESS_KEY);
+        formData.append("access_key", "eb8b59c8-9da3-4358-a5ad-4227c13e3de9");
 
         const response = await fetch("https://api.web3forms.com/submit", {
             method: "POST",
@@ -21,6 +23,7 @@ const ContactSection = () => {
 
         if (data.success) {
             setIsSubmitted(true); // Set success state
+            toast.success("Form submitted successfully");
             e.target.reset();
 
             // Reset the submit button text back to "Submit" after 3 seconds
@@ -29,6 +32,7 @@ const ContactSection = () => {
             }, 3000); // 3000ms = 3 seconds
         } else {
             console.log("Error", data);
+            toast.error("Failed to submit form. PLese try again");
         }
 
         setIsLoading(false); // Stop loading
