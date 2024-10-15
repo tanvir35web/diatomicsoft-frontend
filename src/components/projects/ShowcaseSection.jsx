@@ -54,7 +54,7 @@ const ShowcaseSection = () => {
         <div className="container overflow-hidden mt-12 mx-auto p-6 pb-12 text-center bg-gradient-to-b from-gray-900 to-transparent rounded-[50px]">
             <div className="w-[300px] h-[270px] m-auto pt-8">
                 <Image
-                    src="/stock-images/3d-deshboard.png"
+                    src="/stock-images/3d-deshboard.webp"
                     alt="rock-background-image"
                     layout="responsive"
                     width={300}

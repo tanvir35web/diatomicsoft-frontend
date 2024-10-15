@@ -44,7 +44,7 @@ const ContactSection = () => {
                 {/* Image Section */}
                 <div className="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[500px] mx-auto lg:mx-0">
                     <Image
-                        src="/stock-images/3d-relux.png"
+                        src="/stock-images/3d-relux.webp"
                         alt="3d-digital-image"
                         layout="responsive"
                         width={300}

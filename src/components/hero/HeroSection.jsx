@@ -11,7 +11,7 @@ const HeroSection = ({ scrollToSection }) => {
                     className="relative z-30 flex flex-col md:flex-row items-center md:items-start justify-center text-center md:text-left w-full h-screen px-4 md:px-8 lg:px-16 pt-2 md:pt-20">
                     <div className="w-full max-w-[350px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[700px]">
                         <Image
-                            src="/stock-images/3d-digital.png"
+                            src="/stock-images/3d-digital.webp"
                             alt="3d-digital-image"
                             layout="responsive"
                             width={300}
