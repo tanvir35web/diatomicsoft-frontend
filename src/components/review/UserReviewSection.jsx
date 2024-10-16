@@ -1,6 +1,8 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchReviews} from "@/store/slices/reviewSlice";
 
 const UserReviewSection = () => {
     const [reviews] = useState([
@@ -29,6 +31,22 @@ const UserReviewSection = () => {
             rating: 5,
         },
     ]);
+
+    const dispatch = useDispatch();
+    const { data, status, error } = useSelector((state) => state.reviews);
+
+    // Fetch blogs when the component mounts and status is idle
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchReviews());
+        }
+    }, [status, dispatch]);
+
+    if (status === 'loading') return <p>Loading...</p>;
+    if (status === 'failed') return <p>Error: {error}</p>;
+
+    const clientsReviews = data?.data;
+    console.log("Clients All Reviews: ", clientsReviews)
 
     return (
         <section className=" py-12 px-4 md:px-8 lg:px-16 font-poppins">
