@@ -1,14 +1,42 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import Image from "next/image";
+import { FaStar } from "react-icons/fa";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchReviews} from "@/store/slices/reviewSlice";
 import ReviewCard from "@/components/review/ReviewCard";
 
 const UserReviewSection = () => {
+    const [reviews] = useState([
+        {
+            id: 1,
+            name: "Carolina Montoya",
+            position: "Managing Director",
+            image: "/images/user1.jpg",
+            review: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            rating: 5,
+        },
+        {
+            id: 2,
+            name: "Peter Rose",
+            position: "Manager",
+            image: "/images/user2.jpg",
+            review: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            rating: 5,
+        },
+        {
+            id: 3,
+            name: "Gerald Gilbert",
+            position: "Developer",
+            image: "/images/user3.jpg",
+            review: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            rating: 5,
+        },
+    ]);
 
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.reviews);
 
-    // Fetch review when the component mounts and status is idle
+    // Fetch blogs when the component mounts and status is idle
     useEffect(() => {
         if (status === 'idle') {
             dispatch(fetchReviews());
