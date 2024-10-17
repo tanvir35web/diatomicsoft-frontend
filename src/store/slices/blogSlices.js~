@@ -114,10 +114,11 @@ export const createBlog = createAsyncThunk(
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data', // Important for file upload
                     },
                 }
             );
-            dispatch(fetchBlogs());
+
             return response.data;
         } catch (error) {
             if (error.response && error.response.data) {
@@ -128,7 +129,38 @@ export const createBlog = createAsyncThunk(
     }
 );
 
+const createBlogSlice = createSlice({
+    name: 'createBlog',
+    initialState: {
+        isLoading: false,
+        successMessage: null,
+        errorMessage: null,
+    },
+    reducers: {
+        // Additional reducers if needed
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(createBlog.pending, (state) => {
+                state.isLoading = true;
+                state.successMessage = null;
+                state.errorMessage = null;
+            })
+            .addCase(createBlog.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.successMessage = 'Blog created successfully!';
+                state.errorMessage = null;
+            })
+            .addCase(createBlog.rejected, (state, action) => {
+                state.isLoading = false;
+                state.successMessage = null;
+                state.errorMessage = action.payload || 'Failed to create blog';
+            });
+    },
+});
+
 
 
 export const blogsReducer = blogsSlice.reducer;
 export const deleteBlogReducer = deleteBlogSlice.reducer;
+export const createBlogReducer = createBlogSlice.reducer;

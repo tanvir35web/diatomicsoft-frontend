@@ -114,10 +114,10 @@ export const createBlog = createAsyncThunk(
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data', // Important for file upload
                     },
                 }
             );
-            dispatch(fetchBlogs());
             return response.data;
         } catch (error) {
             if (error.response && error.response.data) {
@@ -131,26 +131,32 @@ export const createBlog = createAsyncThunk(
 const createBlogSlice = createSlice({
     name: 'createBlog',
     initialState: {
-        status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-        error: null,
+        isLoading: false,
+        successMessage: null,
+        errorMessage: null,
     },
-    reducers: {},
+    reducers: {
+        // Additional reducers if needed
+    },
     extraReducers: (builder) => {
         builder
             .addCase(createBlog.pending, (state) => {
-                state.status = 'loading';
+                state.isLoading = true;
+                state.successMessage = null;
+                state.errorMessage = null;
             })
-            .addCase(createBlog.fulfilled, (state) => {
-                state.status = 'succeeded';
-                state.error = null;
+            .addCase(createBlog.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.successMessage = 'Blog created successfully!';
+                state.errorMessage = null;
             })
             .addCase(createBlog.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.payload || action.error.message;
+                state.isLoading = false;
+                state.successMessage = null;
+                state.errorMessage = action.payload || 'Failed to create blog';
             });
     },
 });
-
 
 
 
