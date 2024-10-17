@@ -218,6 +218,6 @@ const projectSlice = createSlice({
 
 export const projectFormReducer = projectFormSlice.reducer;
 export const deleteProjectReducer = deleteProjectSlice.reducer;
-export const editProjectReducer = editProjectSlice.reducer;
+export const updateProjectReducer = editProjectSlice.reducer;
 
 export default projectSlice.reducer;

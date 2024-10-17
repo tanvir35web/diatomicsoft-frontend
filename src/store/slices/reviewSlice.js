@@ -38,5 +38,7 @@ const reviewSlice = createSlice({
     },
 });
 
+// Selector function to access the reviews slice
+export const reviewsSelector = (state) => state.reviews;
 
 export const reviewsReducer = reviewSlice.reducer;

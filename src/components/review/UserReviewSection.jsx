@@ -1,25 +1,17 @@
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchReviews} from "@/store/slices/reviewSlice";
+import { reviewsSelector } from '@/store/slices//reviewSlice';
+
 import ReviewCard from "@/components/review/ReviewCard";
+import {useFetchData} from "@/hooks/useFetchData";
 
 const UserReviewSection = () => {
 
-    const dispatch = useDispatch();
-    const { data, status, error } = useSelector((state) => state.reviews);
-
-    // Fetch review when the component mounts and status is idle
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchReviews());
-        }
-    }, [status, dispatch]);
+    const { data, status, error } = useFetchData(fetchReviews, reviewsSelector);
 
     if (status === 'loading') return <p>Loading...</p>;
     if (status === 'failed') return <p>Error: {error}</p>;
 
     const clientsReviews = data?.data;
-    console.log("Clients All Reviews: ", clientsReviews)
 
     return (
         <section className=" py-12 px-4 md:px-8 lg:px-16 font-poppins">

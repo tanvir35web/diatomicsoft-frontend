@@ -128,32 +128,7 @@ export const createBlog = createAsyncThunk(
     }
 );
 
-const createBlogSlice = createSlice({
-    name: 'createBlog',
-    initialState: {
-        status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-        error: null,
-    },
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(createBlog.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(createBlog.fulfilled, (state) => {
-                state.status = 'succeeded';
-                state.error = null;
-            })
-            .addCase(createBlog.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.payload || action.error.message;
-            });
-    },
-});
-
-
 
 
 export const blogsReducer = blogsSlice.reducer;
 export const deleteBlogReducer = deleteBlogSlice.reducer;
-export const createBlogReducer = createBlogSlice.reducer;
