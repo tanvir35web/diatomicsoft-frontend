@@ -12,11 +12,11 @@ const Project = () => {
 
       {/* all projects view edit and delete */}
 
-      <div className="p-4 pt-8">
+      <div className="p-4 pt-8 min-h-[80vh]">
         {status === 'loading' && <p>Loading...</p>}
         {status === 'failed' && <p>Error: {error.message}</p>}
 
-        <div className="flex gap-10 justify-center flex-wrap container">
+        <div className="flex gap-10 justify-center flex-wrap container ">
           {projects && projects.map((project) => (
             <ProjectCardAdmin
               completeProject={project}

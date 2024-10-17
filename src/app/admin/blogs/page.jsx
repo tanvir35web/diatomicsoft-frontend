@@ -3,9 +3,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "@/store/slices/blogSlices";
 import { useEffect } from "react";
+import BlogsCardForAdmin from "@/components/blogs/BlogsCardForAdmin";
+import {useRouter} from "next/navigation";
 
 const Blog = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { data, status, error } = useSelector((state) => state.blogs);
 
   // Fetch blogs when the component mounts and status is idle
@@ -24,15 +27,25 @@ const Blog = () => {
 
 
   return (
-    <div className="p-4">
-      <p className="text-3xl font-bold text-center pb-10">This is the blog section</p>
-      {blogs && blogs.length > 0 ? (
-        blogs.map((blog) => <div className="p-2 bg-slate-800 mb-2 rounded" key={blog.id}>{blog.title}</div>
-        )
-      ) : (
-        <p>No blogs available</p>
-      )}
-    </div>
+      <>
+        <div className="min-h-[80vh]">
+          <div className="p-4 flex flex-wrap">
+            {blogs && blogs.length > 0 ? (
+                blogs.map((blog) => <BlogsCardForAdmin key={blog._id} {...blog} />
+                )
+            ) : (
+                <p>No blogs available</p>
+            )}
+          </div>
+        </div>
+
+        <div className="fixed bottom-10 right-10">
+          <button className="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-6 rounded duration-150" onClick={() => router.push('/admin/blogs/create-blog')}>
+            +  Create a new Blog
+          </button>
+        </div>
+      </>
+
   );
 };
 

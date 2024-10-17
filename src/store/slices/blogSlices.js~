@@ -118,6 +118,7 @@ export const createBlog = createAsyncThunk(
                     },
                 }
             );
+
             return response.data;
         } catch (error) {
             if (error.response && error.response.data) {
