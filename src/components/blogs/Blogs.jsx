@@ -34,7 +34,7 @@ const Blogs = () => {
                 <BlogsCard
                   bolgImage={blog.bolgImage}
                   title={blog.title}
-                  description={blog.description}
+                  description={blog.description.slice(0, 600)}
                   tags={blog.tags}
                   author={blog.author}
                 />

@@ -95,7 +95,7 @@ const EditProjectModal = ({ isOpen, onClose, blog, onSubmit }) => {
                   value={description} // Ensure the editor value is set to the description state
                   onChange={setDescription} // Update the description state on editor change
                   className="bg-slate-800 text-white mt-2 rounded outline-none border border-transparent focus:border-slate-600"
-                  style={{ height: "350px", width: "100%" }}
+                  style={{ height: "300px", width: "100%" }}
                   modules={modules} // Add the modules to enable headers
                   formats={formats} // Add the formats to support headers
               />
