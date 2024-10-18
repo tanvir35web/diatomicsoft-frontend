@@ -1,0 +1,394 @@
+// "use client";
+//
+// import {toast} from "react-toastify";
+// import {useDispatch, useSelector} from "react-redux";
+// import {createBlog} from "@/store/slices/blogSlices";
+//
+// const CreateBlog = () => {
+//
+//     const dispatch = useDispatch();
+//     const { isLoading, successMessage, errorMessage } = useSelector((state) => state.blogCreate);
+//
+//
+//     // Form submission handler
+//     // const handleSubmit = async (e) => {
+//     //     e.preventDefault();
+//     //
+//     //     // Collect form data
+//     //     const formData = {
+//     //         title: e.target.title.value,
+//     //         description: e.target.description.value,
+//     //         author: e.target.author.value,
+//     //         tags: e.target.tags.value,
+//     //     };
+//     //
+//     //     console.log(formData); // Log formData to ensure it is correct
+//     //
+//     //     try {
+//     //         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs`, formData, {
+//     //             headers: {
+//     //                 'Content-Type': 'application/json',
+//     //             },
+//     //         });
+//     //         alert("Blog created successfully!");
+//     //     } catch (error) {
+//     //         console.error('Error details:', error);
+//     //         alert(`Error: ${error.message}`);
+//     //     }
+//     // };
+//
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//
+//         // Create a new FormData object
+//         const formData = new FormData();
+//
+//         // Append the text fields
+//         formData.append('title', e.target.title.value);
+//         formData.append('description', e.target.description.value);
+//         formData.append('author', e.target.author.value);
+//         formData.append('tags', e.target.tags.value);
+//
+//         // Append the image (if any)
+//         const imageFile = e.target.image.files[0]; // Get the selected file from the input
+//         if (imageFile) {
+//             formData.append('image', imageFile); // Append image to formData
+//         }
+//
+//         dispatch(createBlog(formData));
+//
+//     };
+//
+//     console.log("success: ", successMessage);
+//
+//     if (successMessage) {
+//         toast.success("Successfully created blog");
+//     } else{
+//         toast.error(errorMessage);
+//     }
+//
+//
+//     return (
+//         <div className="p-10 pl-32 w-full m-auto h-full">
+//             <p className="text-3xl font-bold">Create a new Blog</p>
+//
+//             {/* Create a new Blog Form */}
+//             <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-6 max-w-[60%]">
+//                 <div className="mt-8">
+//                     <label className="block" htmlFor="title">Title</label>
+//                     <input
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         type="text" name="title" id="title" required/>
+//                 </div>
+//                 <div>
+//                     <label className="block" htmlFor="description">Description</label>
+//                     <textarea
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         name="description" id="description" cols="30" rows="10" required></textarea>
+//                 </div>
+//                 <div>
+//                     <label className="block" htmlFor="author">Author</label>
+//                     <input
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         type="text" name="author" id="author" required/>
+//                 </div>
+//                 <div>
+//                     <label className="block" htmlFor="tags">Tags</label>
+//                     <input
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         type="text" name="tags" id="tags" required/>
+//                 </div>
+//                 <div>
+//                     <label className="block" htmlFor="image">Image</label>
+//                     <input
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         type="file" name="image" id="image" accept="image/*"/>
+//                 </div>
+//
+//                 <button
+//                     className="bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600 hover:bg-slate-700"
+//                     type="submit"
+//                     disabled={isLoading}
+//                 >
+//                     {isLoading ? 'Creating...' : 'Create'}
+//                 </button>
+//             </form>
+//
+//
+//         </div>
+//     );
+// };
+//
+// export default CreateBlog;
+
+//
+// "use client"
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useEffect, useState } from 'react';
+// import {createBlog, fetchBlogById, updateBlog} from '@/store/slices/blogSlices';
+// import { toast } from 'react-toastify';
+// import {useRouter} from "next/navigation";
+//
+// const BlogForm = ({_id}) => {
+//     const dispatch = useDispatch();
+//     const router = useRouter();
+//     const { query } = router; // Use `query` instead of destructuring `_id` directly
+//
+//     const { blog, isLoading, successMessage, errorMessage } = useSelector((state) => state.blogCreate);
+//
+//     const [formData, setFormData] = useState({
+//         title: '',
+//         description: '',
+//         author: '',
+//         tags: '',
+//         image: null,
+//     });
+//
+//     // Fetch blog data when editing (only if _id is present)
+//     useEffect(() => {
+//         if (_id) {
+//             dispatch(fetchBlogById(_id));
+//         }
+//     }, [_id, dispatch]);
+//
+//     // Populate the form with fetched blog data
+//     useEffect(() => {
+//         if (blog && _id) {
+//             setFormData({
+//                 title: blog.title,
+//                 description: blog.description,
+//                 author: blog.author,
+//                 tags: blog.tags,
+//                 image: null, // Handle image separately if required
+//             });
+//         }
+//     }, [blog, _id]);
+//
+//     // Handle form input changes
+//     const handleInputChange = (e) => {
+//         setFormData({
+//             ...formData,
+//             [e.target.name]: e.target.value,
+//         });
+//     };
+//
+//     // Handle file change (image)
+//     const handleFileChange = (e) => {
+//         setFormData({
+//             ...formData,
+//             image: e.target.files[0], // Update image field when file is selected
+//         });
+//     };
+//
+//     // Handle form submission (for updating or creating the blog)
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//
+//         const form = new FormData();
+//         form.append('title', formData.title);
+//         form.append('description', formData.description);
+//         form.append('author', formData.author);
+//         form.append('tags', formData.tags);
+//
+//         if (formData.image) {
+//             form.append('image', formData.image); // Append image if changed
+//         }
+//
+//         // If _id is present, update the blog; otherwise, create a new one
+//         if (_id) {
+//             dispatch(updateBlog({ _id, formData: form }));
+//         } else {
+//             // Add your createBlog logic here
+//             dispatch(createBlog(form)); // Dispatch your createBlog action
+//         }
+//
+//
+//     };
+//
+//     // Show toast notifications on success or error
+//     useEffect(() => {
+//         if (successMessage) {
+//             toast.success(successMessage);
+//         }
+//         if (errorMessage) {
+//             toast.error(errorMessage);
+//         }
+//     }, [successMessage, errorMessage]);
+//
+//     return (
+//         <div className="p-10 pl-32 w-full m-auto h-full">
+//             {/*<p className="text-3xl font-bold">Create a new Blog</p>*/}
+//
+//             <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-6 max-w-[800px]">
+//                 <div className="mt-8">
+//                     <label className="block" htmlFor="title">Title</label>
+//                     <input
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         type="text" name="title" id="title" value={formData.title} onChange={handleInputChange}
+//                         required/>
+//                 </div>
+//                 <div>
+//                     <label className="block" htmlFor="description">Description</label>
+//                     <textarea
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         name="description" id="description" cols="30" rows="10" value={formData.description}
+//                         onChange={handleInputChange} required/>
+//                 </div>
+//                 <div>
+//                     <label className="block" htmlFor="author">Author</label>
+//                     <input
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         type="text" name="author" id="author" value={formData.author} onChange={handleInputChange}
+//                         required/>
+//                 </div>
+//                 <div>
+//                     <label className="block" htmlFor="tags">Tags</label>
+//                     <input
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         type="text" name="tags" id="tags" value={formData.tags} onChange={handleInputChange} required/>
+//                 </div>
+//                 <div>
+//                     <label className="block" htmlFor="image">Image</label>
+//                     <input
+//                         className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+//                         type="file" name="image" id="image" onChange={handleFileChange}/>
+//                 </div>
+//
+//                 <button
+//                     className="bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600 hover:bg-slate-700"
+//                     type="submit"
+//                     disabled={isLoading}
+//                 >
+//                     {isLoading ? (_id ? 'Updating...' : 'Creating...') : (_id ? 'Update Blog' : 'Create Blog')}
+//                 </button>
+//
+//             </form>
+//         </div>
+//     );
+// };
+//
+// export default BlogForm;
+
+
+"use client";
+
+import {toast} from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import {createBlog} from "@/store/slices/blogSlices";
+
+const CreateBlog = () => {
+
+    const dispatch = useDispatch();
+    const { isLoading, successMessage, errorMessage } = useSelector((state) => state.blogCreate);
+
+
+    // Form submission handler
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //
+    //     // Collect form data
+    //     const formData = {
+    //         title: e.target.title.value,
+    //         description: e.target.description.value,
+    //         author: e.target.author.value,
+    //         tags: e.target.tags.value,
+    //     };
+    //
+    //     console.log(formData); // Log formData to ensure it is correct
+    //
+    //     try {
+    //         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs`, formData, {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    //         alert("Blog created successfully!");
+    //     } catch (error) {
+    //         console.error('Error details:', error);
+    //         alert(`Error: ${error.message}`);
+    //     }
+    // };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Create a new FormData object
+        const formData = new FormData();
+
+        // Append the text fields
+        formData.append('title', e.target.title.value);
+        formData.append('description', e.target.description.value);
+        formData.append('author', e.target.author.value);
+        formData.append('tags', e.target.tags.value);
+
+        // Append the image (if any)
+        const imageFile = e.target.image.files[0]; // Get the selected file from the input
+        if (imageFile) {
+            formData.append('image', imageFile); // Append image to formData
+        }
+
+        dispatch(createBlog(formData));
+
+    };
+
+    console.log("success: ", successMessage);
+
+    if (successMessage) {
+        toast.success("Successfully created blog");
+    } else{
+        toast.error(errorMessage);
+    }
+
+
+    return (
+        <div className="p-10 pl-32 w-full m-auto h-full">
+            <p className="text-3xl font-bold">Create a new Blog</p>
+
+            {/* Create a new Blog Form */}
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-6 max-w-[60%]">
+                <div className="mt-8">
+                    <label className="block" htmlFor="title">Title</label>
+                    <input
+                        className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+                        type="text" name="title" id="title" required/>
+                </div>
+                <div>
+                    <label className="block" htmlFor="description">Description</label>
+                    <textarea
+                        className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+                        name="description" id="description" cols="30" rows="10" required></textarea>
+                </div>
+                <div>
+                    <label className="block" htmlFor="author">Author</label>
+                    <input
+                        className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+                        type="text" name="author" id="author" required/>
+                </div>
+                <div>
+                    <label className="block" htmlFor="tags">Tags</label>
+                    <input
+                        className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+                        type="text" name="tags" id="tags" required/>
+                </div>
+                <div>
+                    <label className="block" htmlFor="image">Image</label>
+                    <input
+                        className="block w-full bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600"
+                        type="file" name="image" id="image" accept="image/*"/>
+                </div>
+
+                <button
+                    className="bg-slate-800 p-2 mt-2 rounded outline-none border border-transparent focus:border-slate-600 hover:bg-slate-700"
+                    type="submit"
+                    disabled={isLoading}
+                >
+                    {isLoading ? 'Creating...' : 'Create'}
+                </button>
+            </form>
+
+
+        </div>
+    );
+};
+
+export default CreateBlog;

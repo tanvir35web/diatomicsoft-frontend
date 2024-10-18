@@ -31,7 +31,7 @@ const Blog = () => {
         <div className="min-h-[80vh]">
           <div className="p-4 flex flex-wrap">
             {blogs && blogs.length > 0 ? (
-                blogs.map((blog) => <BlogsCardForAdmin fullBlog={blog} key={blog._id} {...blog} />
+                blogs.map((blog) => <BlogsCardForAdmin key={blog._id} {...blog} />
                 )
             ) : (
                 <p>No blogs available</p>

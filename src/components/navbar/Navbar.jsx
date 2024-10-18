@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from 'next/navigation'
+import {usePathname, useRouter} from 'next/navigation'
 import { navItems } from "@/utils/navItems";
 
 
@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const pathname = usePathname()
+  const router = useRouter();
 
 
   const toggleMenu = () => {
@@ -43,7 +44,7 @@ const Navbar = () => {
       <div className="bg-slate-800 bg-opacity-10 backdrop-blur-xl sticky top-0 z-50 border-b border-gray-800">
         <div className="container flex flex-row justify-between items-center text-white m-auto p-5">
           <div className="logo">
-            <p className="text-3xl font-bold text-blue-600">Diatomic-Soft</p>
+            <p onClick={() => router.push('/')} className="text-3xl font-bold text-blue-600 cursor-pointer">Diatomic-Soft</p>
           </div>
           <div className="hidden md:flex">
             <ul className="flex flex-row gap-10">
