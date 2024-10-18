@@ -5,6 +5,9 @@ import Head from 'next/head';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "@/store/slices/blogSlices";
 import formatDate from "@/utils/formatDate";
+import Image from "next/image";
+import DOMPurify from 'dompurify';
+
 
 const BlogPost = ({ params }) => {
     const { id } = params; // Get the ID from params
@@ -28,6 +31,15 @@ const BlogPost = ({ params }) => {
         }
     }, [data, id]);
 
+    const [sanitizedContent, setSanitizedContent] = useState('');
+
+    useEffect(() => {
+        // Sanitize only on the client-side after mounting
+        if (typeof window !== 'undefined') {
+            setSanitizedContent(DOMPurify.sanitize(blog?.description));
+        }
+    }, [blog?.description]);
+
     if (status === 'loading') return <p>Loading...</p>;
     if (status === 'failed') return <p>Error: {error}</p>;
     if (!blog) return <p>Blog post not found.</p>; 
@@ -40,11 +52,28 @@ const BlogPost = ({ params }) => {
             </Head>
             <div className="container m-auto mt-8 p-4">
                 <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold">{blog.title}</h1>
-                <div className="flex justify-between mt-2" >
+                <div className="flex justify-between mt-2">
                     <p className="mt-2 text-gray-400 text-sm md:text-lg ">Author: {blog.author}</p>
                     <p className="mt-2 text-gray-400 text-sm md:text-lg">{formatDate(blog.createdAt)}</p>
                 </div>
-                <p className="mt-10 text-justify text-sm md:text-lg">{blog.description}</p>
+
+                <div className="relative mt-10 w-full md:w-[800px] lg:w-[1510px] h-[140px] lg:h-[600px] p-4">
+                    <Image
+                        src={blog.blogImage}
+                        alt={blog.title}
+                        fill
+                        sizes="(max-width: 800px) 100vw, 800px"
+                        quality={100}
+                        className="object-cover rounded-xl"
+                    />
+                </div>
+
+                <div
+                    className="prose prose-sm md:prose-lg mt-10 text-justify w-full max-w-none"
+                    dangerouslySetInnerHTML={{__html: sanitizedContent}}
+                ></div>
+
+
             </div>
         </>
     );

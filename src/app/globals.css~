@@ -94,5 +94,4 @@ input:-webkit-autofill:active{
     color: white; /* Text color */
 }
 
-
   
