@@ -2,15 +2,20 @@ import {CgMoreVerticalAlt} from "react-icons/cg";
 import {FaUserEdit} from "react-icons/fa";
 import {MdDelete} from "react-icons/md";
 import {useState} from "react";
-import {deleteProject} from "@/store/slices/projectSlices";
 import {toast} from "react-toastify";
 import {useDispatch} from "react-redux";
-import {deleteBlog} from "@/store/slices/blogSlices";
+import {deleteBlog, updateBlog} from "@/store/slices/blogSlices";
+import {useRouter} from "next/navigation";
+import {editProject} from "@/store/slices/projectSlices";
+import EditBlogModal from "@/components/blogs/EditBlogModal";
+import axios from "axios";
 
-const BlogsCardForAdmin = ({ bolgImage, _id, title, description, author, tags }) => {
+const BlogsCardForAdmin = ({ bolgImage, fullBlog, _id, title, description, author, tags }) => {
 
     const [isThreeDotMenuOpen, setIsThreeDotMenuOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const dispatch = useDispatch();
+    const router = useRouter();
 
 
     const handleThreeDotMenuClick = (e) => {
@@ -23,6 +28,32 @@ const BlogsCardForAdmin = ({ bolgImage, _id, title, description, author, tags })
         setIsThreeDotMenuOpen(false);
         toast.success(`${title} deleted successfully`);
     };
+
+
+    const openModal = () => {
+        setIsModalOpen(true);
+        setIsThreeDotMenuOpen(false);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleUpdateBlog = (updatedBlog) => {
+        console.log("updatedBlog:", updatedBlog);
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs/${_id}`;
+
+        return axios.patch(apiUrl, updatedBlog)
+            .then(() => {
+                toast.success("Blog updated successfully!");
+                closeModal();  // Assuming this is a function to close the modal
+            })
+            .catch(error => {
+                console.error("Error updating blog:", error);
+                toast.error("Error updating blog");
+            });
+    };
+
 
 
     const tagSeperatedName = (tags) => {
@@ -58,7 +89,7 @@ const BlogsCardForAdmin = ({ bolgImage, _id, title, description, author, tags })
                         <div
                             className="dropdown-menu w-[150px] absolute right-2 top-full bg-slate-900 border border-gray-600 rounded-xl shadow-md p-2 z-20">
                             <button
-                                // onClick={openModal}
+                                onClick={openModal}
                                 className="text-start w-full px-2 py-2 text-gray-300 hover:bg-gray-800 duration-150 rounded-lg flex flex-row items-center gap-2"
                             >
                                 <FaUserEdit/>
@@ -75,6 +106,13 @@ const BlogsCardForAdmin = ({ bolgImage, _id, title, description, author, tags })
                     )}
                 </div>
             </div>
+
+            <EditBlogModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                blog={fullBlog}
+                onSubmit={handleUpdateBlog}
+            />
         </>
     )
 }

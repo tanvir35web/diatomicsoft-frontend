@@ -118,7 +118,6 @@ export const createBlog = createAsyncThunk(
                     },
                 }
             );
-
             return response.data;
         } catch (error) {
             if (error.response && error.response.data) {
@@ -161,6 +160,99 @@ const createBlogSlice = createSlice({
 
 
 
+
+
+// Thunk to fetch blog by ID
+export const fetchBlogById = createAsyncThunk(
+    'blogs/fetchBlogById',
+    async (_id, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs/${_id}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data || error.message);
+        }
+    }
+);
+
+const blogSlice = createSlice({
+    name: 'blog',
+    initialState: {
+        data: [],
+        status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+        error: null,
+    },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchBlogs.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchBlogs.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.error = null;
+                state.data = action.payload;
+            })
+            .addCase(fetchBlogs.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload || action.error.message;
+            });
+    },
+});
+
+
+// Thunk to update an existing blog using PATCH
+export const updateBlog = createAsyncThunk(
+    'blogs/updateBlog',
+    async ({ _id, formData }, { rejectWithValue }) => {
+        try {
+            console.log("oob", { _id, formData })
+            const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs/${_id}`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data', // Important for file upload
+                },
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data || error.message);
+        }
+    }
+);
+// Blog slice
+const UpdateBlogSlice = createSlice({
+    name: 'updateBlogs',
+    initialState: {
+        isLoading: false,
+        successMessage: null,
+        errorMessage: null,
+    },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(updateBlog.pending, (state) => {
+                state.isLoading = true;
+                state.successMessage = null;
+                state.errorMessage = null;
+            })
+            .addCase(updateBlog.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.successMessage = 'Blog updated successfully!';
+                state.errorMessage = null;
+            })
+            .addCase(updateBlog.rejected, (state, action) => {
+                state.isLoading = false;
+                state.successMessage = null;
+                state.errorMessage = action.payload || 'Failed to update blog';
+            });
+    },
+});
+
+
+
+
 export const blogsReducer = blogsSlice.reducer;
 export const deleteBlogReducer = deleteBlogSlice.reducer;
 export const createBlogReducer = createBlogSlice.reducer;
+export const updateBlogReducer = UpdateBlogSlice.reducer;
+export const blogReducer = blogSlice.reducer;
