@@ -12,8 +12,8 @@ const asideMenuItems = [
     ]
   },
   { label: "Blogs", path: "/admin/blogs" },
-  { label: "Users", path: "/admin/users" },
-  { label: "Logout", path: "/admin/logout" },
+  // { label: "Users", path: "/admin/users" },
+  // { label: "Logout", path: "/admin/logout" },
 ];
 
 const AsideMenu = () => {

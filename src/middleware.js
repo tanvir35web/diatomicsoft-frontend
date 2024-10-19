@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server';
 export function middleware(req) {
   const url = req.nextUrl.clone();
   const isAuthenticated = req.cookies.get('uidToken');
-  const isLoginPage = url.pathname === '/admin/login';
+  const isLoginPage = url.pathname === '/login';
 
   // If the user is not authenticated and is not on the login page, redirect to the login page
   if (!isAuthenticated && !isLoginPage) {
-    url.pathname = '/admin/login';
+    url.pathname = '/login';
     return NextResponse.redirect(url);
   }
 

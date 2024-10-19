@@ -65,7 +65,7 @@ const BlogPost = ({ params }) => {
                             layout="fill"
                             objectFit="cover"
                             quality={100}
-                            className="rounded-lg  md:rounded-[16px] lg:rounded-[24px]"
+                            className="sm:rounded-lg  md:rounded-[16px] lg:rounded-[24px]"
                         />
                     </div>
                 </div>

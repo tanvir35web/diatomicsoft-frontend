@@ -16,7 +16,7 @@ export const navItems = [
     href: "/contact",
   },
   {
-    label: "Admin",
-    href: "/admin",
+    label: "Login",
+    href: "/login",
   }
 ];
