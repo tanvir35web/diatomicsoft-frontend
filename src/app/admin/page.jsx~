@@ -21,7 +21,7 @@ export default function Admin() {
                       <Image src="/stock-images/blog-icon.png" alt="3d-digital-image" width={50} height={50}></Image>
                   </div>
                   <p className="text-md -mt-1 text-gray-300 ">Number of blogs</p>
-                  <p className="text-3xl font-bold ">03</p>
+                  <p className="text-3xl font-bold ">04</p>
               </div>
 
               <div
@@ -31,7 +31,7 @@ export default function Admin() {
                       <Image src="/stock-images/project-icon.png" alt="3d-digital-image" width={50} height={50}></Image>
                   </div>
                   <p className="text-md -mt-1 text-gray-300 ">Number of Projects</p>
-                  <p className="text-3xl font-bold ">04</p>
+                  <p className="text-3xl font-bold ">06</p>
               </div>
 
               <div
