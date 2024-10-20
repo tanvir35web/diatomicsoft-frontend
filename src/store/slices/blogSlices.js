@@ -249,6 +249,7 @@ const UpdateBlogSlice = createSlice({
     },
 });
 
+export const blogSelector = (state) => state.blogs;
 
 
 

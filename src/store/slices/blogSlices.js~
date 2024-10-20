@@ -102,6 +102,7 @@ export const createBlog = createAsyncThunk(
     'createBlog/createBlog',
     async (data, { dispatch, rejectWithValue }) => {
         try {
+            console.log("form data", data)
             // Retrieve the token from cookies
             const token = getCookieValue('uidToken');
 
