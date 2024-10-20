@@ -39,24 +39,12 @@ const BlogsCardForAdmin = ({ bolgImage, fullBlog, _id, title, description, autho
         setIsModalOpen(false);
     };
 
-    const handleUpdateBlog = (updatedBlog) => {
-        console.log("updatedBlog:", updatedBlog);
-        const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs/${_id}`;
 
-        return axios.patch(apiUrl, updatedBlog)
-            .then(() => {
-                toast.success("Blog updated successfully!");
-                closeModal();  // Assuming this is a function to close the modal
-            })
-            .catch(error => {
-                console.error("Error updating blog:", error);
-                toast.error("Error updating blog");
-            });
+    const handleUpdateBlog = (updatedBlog) => {
+        return dispatch(updateBlog(updatedBlog));
     };
 
-
-
-    const tagSeperatedName = (tags) => {
+    const renderTagSeperatedName = (tags) => {
         return (
             <div className="flex flex-wrap gap-5">
                 {tags.map((tech, index) => {
@@ -76,7 +64,7 @@ const BlogsCardForAdmin = ({ bolgImage, fullBlog, _id, title, description, autho
     }
     return (
         <>
-            <div className="bg-slate-900  p-3 lg:p-6 m-2 rounded-lg w-[320px] lg:w-[500px] cursor-pointer relative">
+            <div className="bg-slate-900  p-3 lg:p-6 m-2 rounded-lg w-[320px] lg:w-[500px] cursor-pointer border border-gray-800 hover:border-gray-700 duration-150 relative">
                 <p className="text-2xl font-semibold pb-4">{title}</p>
                 {/* Render description using dangerouslySetInnerHTML */}
                 <div
@@ -84,7 +72,7 @@ const BlogsCardForAdmin = ({ bolgImage, fullBlog, _id, title, description, autho
                     dangerouslySetInnerHTML={{ __html: description.slice(0,500) }}
                 />
                 <p className="text-sm pb-4 text-gray-300"> Author: {author}</p>
-                <p>{tagSeperatedName(tags)}</p>
+                <p>{renderTagSeperatedName(tags)}</p>
 
                 <div
                     className="absolute hover:bg-gray-800 duration-150 rounded-full p-1 bottom-4 right-3 three-dot-menu">

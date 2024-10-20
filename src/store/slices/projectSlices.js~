@@ -54,6 +54,8 @@ export const editProject = createAsyncThunk(
   'projectForm/editProject',
   async (formData, { dispatch, rejectWithValue }) => {
     try {
+      console.log('Patch form data id', formData?.id);
+
        // Retrieve the token from cookies
        const token = getCookieValue('uidToken');
 

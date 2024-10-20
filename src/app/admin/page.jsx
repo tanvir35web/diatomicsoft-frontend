@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import useFetchProjects from "@/hooks/useFetchProjects";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
 import {blogSelector, fetchBlogs} from "@/store/slices/blogSlices";
 import {useFetchData} from "@/hooks/useFetchData";
 import {fetchReviews, reviewsSelector} from "@/store/slices/reviewSlice";
