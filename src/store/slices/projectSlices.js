@@ -2,12 +2,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Utility function to get token from cookies
+
 const getCookieValue = (name) => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+  if (typeof document !== 'undefined') {  // Check if 'document' is available
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+  return null;
 };
+
+const token = getCookieValue('uidToken');
 
 // Define an async thunk for making API calls
 export const fetchData = createAsyncThunk(
@@ -24,9 +29,6 @@ export const deleteProject = createAsyncThunk(
   'deleteProject/deleteProject',
   async (id, { dispatch, rejectWithValue }) => {
     try {
-      // Retrieve the token from cookies
-      const token = getCookieValue('uidToken');
-
       if (!token) {
         return rejectWithValue('Authentication token is missing.');
       }
@@ -54,8 +56,6 @@ export const editProject = createAsyncThunk(
   'projectForm/editProject',
   async (formData, { dispatch, rejectWithValue }) => {
     try {
-       // Retrieve the token from cookies
-       const token = getCookieValue('uidToken');
 
        if (!token) {
          return rejectWithValue('Authentication token is missing.');
