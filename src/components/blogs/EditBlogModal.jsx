@@ -30,8 +30,9 @@ const formats = [
   'link', 'image', 'align', 'color', 'background'
 ];
 
-const EditProjectModal = ({ isOpen, onClose, blog, onSubmit }) => {
+const EditBlogModal = ({ isOpen, onClose, blog, onSubmit }) => {
   const [formData, setFormData] = useState({
+    id: blog._id,
     title: blog.title,
     description: blog.description,
     author: blog.author,
@@ -50,6 +51,7 @@ const EditProjectModal = ({ isOpen, onClose, blog, onSubmit }) => {
 
     // No need for FormData here unless you handle file uploads
     const updatedData = {
+      id: formData.id,
       title: formData.title,
       description: description,
       author: formData.author,
@@ -142,4 +144,4 @@ const EditProjectModal = ({ isOpen, onClose, blog, onSubmit }) => {
   );
 };
 
-export default EditProjectModal;
+export default EditBlogModal;

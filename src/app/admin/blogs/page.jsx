@@ -23,8 +23,6 @@ const Blog = () => {
 
   const blogs = data?.data;
 
-  console.log('Blogs', blogs);
-
 
   return (
       <>
@@ -40,7 +38,7 @@ const Blog = () => {
         </div>
 
         <div className="fixed bottom-10 right-10">
-          <button className="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-6 rounded duration-150" onClick={() => router.push('/admin/blogs/create-blog')}>
+          <button className="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-6 rounded border border-slate-700 duration-150" onClick={() => router.push('/admin/blogs/create-blog')}>
             +  Create a new Blog
           </button>
         </div>

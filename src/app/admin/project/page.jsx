@@ -2,8 +2,6 @@
 import ProjectCardAdmin from "@/components/projects/ProjectCardAdmin";
 import useFetchProjects from "@/hooks/useFetchProjects";
 
-
-
 const Project = () => {
   const { projects, status, error } = useFetchProjects();
 

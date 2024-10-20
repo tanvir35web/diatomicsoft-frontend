@@ -3,13 +3,16 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 
-// Utility function to get token from cookies
 const getCookieValue = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    if (typeof document !== 'undefined') {  // Check if 'document' is available
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    return null;
 };
 
+const token = getCookieValue('uidToken');
 
 // Define an async thunk for making API calls
 export const fetchBlogs = createAsyncThunk(
@@ -50,9 +53,6 @@ export const deleteBlog = createAsyncThunk(
     'deleteBlog/deleteBlog',
     async (id, { dispatch, rejectWithValue }) => {
         try {
-            // Retrieve the token from cookies
-            const token = getCookieValue('uidToken');
-
             if (!token) {
                 return rejectWithValue('Authentication token is missing.');
             }
@@ -102,10 +102,6 @@ export const createBlog = createAsyncThunk(
     'createBlog/createBlog',
     async (data, { dispatch, rejectWithValue }) => {
         try {
-            console.log("form data", data)
-            // Retrieve the token from cookies
-            const token = getCookieValue('uidToken');
-
             if (!token) {
                 return rejectWithValue('Authentication token is missing.');
             }
@@ -160,9 +156,6 @@ const createBlogSlice = createSlice({
 });
 
 
-
-
-
 // Thunk to fetch blog by ID
 export const fetchBlogById = createAsyncThunk(
     'blogs/fetchBlogById',
@@ -205,16 +198,19 @@ const blogSlice = createSlice({
 // Thunk to update an existing blog using PATCH
 export const updateBlog = createAsyncThunk(
     'blogs/updateBlog',
-    async ({ _id, formData }, { rejectWithValue }) => {
+    async (formData, { dispatch, rejectWithValue }) => {
         try {
-            console.log("oob", { _id, formData })
-            const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs/${_id}`, formData, {
+            const id = formData?.id;
+            if (!token) {
+                return rejectWithValue('Authentication token is missing.');
+            }
+            const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data', // Important for file upload
                 },
             });
             return response.data;
+            dispatch(fetchBlogs());
         } catch (error) {
             return rejectWithValue(error.response.data || error.message);
         }
@@ -249,6 +245,7 @@ const UpdateBlogSlice = createSlice({
     },
 });
 
+export const blogSelector = (state) => state.blogs;
 
 
 

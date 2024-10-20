@@ -19,15 +19,20 @@ const EditProjectModal = ({ isOpen, onClose, project, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // No need for FormData here unless you handle file uploads
-    const updatedData = {
-      id: formData.id,
-      title: formData.title,
-      description: formData.description,
-      targetedPlatform: formData.targetedPlatform,
-      usedTechnology: formData.usedTechnology,
-      status: formData.status
-    };
+    const updatedData = new FormData();
+
+    // Append all fields to FormData if you need to handle them as form data
+    updatedData.append('id', formData.id);
+    updatedData.append('title', formData.title);
+    updatedData.append('description', formData.description);
+    updatedData.append('targetedPlatform', formData.targetedPlatform);
+    updatedData.append('usedTechnology', formData.usedTechnology);
+    updatedData.append('status', formData.status);
+
+    // Debug: Check what's inside FormData
+  for (let pair of updatedData.entries()) {
+    console.log(`${pair[0]}, ${pair[1]}`);
+  }
 
   // Call the passed onSubmit function with updated formData
   onSubmit(updatedData)

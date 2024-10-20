@@ -1,17 +1,22 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import useFetchProjects from "@/hooks/useFetchProjects";
+import {blogSelector, fetchBlogs} from "@/store/slices/blogSlices";
+import {useFetchData} from "@/hooks/useFetchData";
+import {fetchReviews, reviewsSelector} from "@/store/slices/reviewSlice";
 
 export default function Admin() {
-  // const router = useRouter();
-  //
-  // const handleLogout = () => {
-  //   document.cookie = "uidToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; Secure; SameSite=None";
-  //   router.push('/admin/login');
-  // }
+    const { projects } = useFetchProjects();
 
-  return (
+    const { data: reviews } = useFetchData(fetchReviews, reviewsSelector);
+    const reviewsData = reviews?.data;
+
+    const { data: blogs } = useFetchData(fetchBlogs, blogSelector);
+    const blogsData = blogs?.data;
+
+
+    return (
       <div className="p-6">
           <h1 className="text-3xl font-bold px-3">Dashboard</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
@@ -21,7 +26,7 @@ export default function Admin() {
                       <Image src="/stock-images/blog-icon.png" alt="3d-digital-image" width={50} height={50}></Image>
                   </div>
                   <p className="text-md -mt-1 text-gray-300 ">Number of blogs</p>
-                  <p className="text-3xl font-bold ">03</p>
+                  <p className="text-3xl font-bold ">{blogsData && blogsData?.length && (blogsData.length < 10 ? `0${blogsData.length}` : blogsData.length ) || 0}</p>
               </div>
 
               <div
@@ -31,7 +36,7 @@ export default function Admin() {
                       <Image src="/stock-images/project-icon.png" alt="3d-digital-image" width={50} height={50}></Image>
                   </div>
                   <p className="text-md -mt-1 text-gray-300 ">Number of Projects</p>
-                  <p className="text-3xl font-bold ">04</p>
+                  <p className="text-3xl font-bold ">{projects && projects?.length && (projects.length < 10 ? `0${projects.length}` : projects.length ) || 0}</p>
               </div>
 
               <div
@@ -40,7 +45,7 @@ export default function Admin() {
                       <Image src="/stock-images/rating-icon.png" alt="3d-digital-image" width={50} height={50}></Image>
                   </div>
                   <p className="text-md -mt-1 text-gray-300 ">Number of Reviews</p>
-                  <p className="text-3xl font-bold ">03</p>
+                  <p className="text-3xl font-bold ">{reviewsData && reviewsData?.length && (reviewsData.length < 10 ? `0${reviewsData.length}` : reviewsData.length ) || 0}</p>
               </div>
           </div>
 

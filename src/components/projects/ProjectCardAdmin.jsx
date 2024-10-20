@@ -8,7 +8,9 @@ import { deleteProject, editProject } from "@/store/slices/projectSlices";
 import Image from "next/image";
 import EditProjectModal from './EditProjectModal';
 
+
 const ProjectCardAdmin = ({ completeProject, coverImage, id, title, description, status, usedTechnology, targetedPlatform }) => {
+
   const [isThreeDotMenuOpen, setIsThreeDotMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const dispatch = useDispatch();
@@ -30,11 +32,11 @@ const ProjectCardAdmin = ({ completeProject, coverImage, id, title, description,
     toast.success(`${title} deleted successfully`);
   };
 
-  const handleEditProject = (project) => {    
-    return dispatch(editProject(project));
+  const handleEditProject = (updatedProject) => {
+    return dispatch(editProject(updatedProject));
   };
 
-  
+
 
   const openModal = () => {
     setIsModalOpen(true);
