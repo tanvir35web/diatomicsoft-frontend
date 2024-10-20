@@ -8,25 +8,23 @@ import dynamic from "next/dynamic";
 // Dynamically import ReactQuill to handle SSR issues with Next.js
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-// Define the Quill modules with header support
+// Add the code-block support to the Quill toolbar
 const modules = {
   toolbar: [
-    [{ 'header': '1' }, { 'header': '2' }, { 'header': '3' }, { 'font': [] }],
+    [{ 'header': '1' }, { 'header': '2' }, { 'header': [3, false] }],
     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['blockquote', 'code-block'],
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],  // Add code block option
+    ['link', 'image'],
     [{ 'align': [] }],
-    ['link', 'image'],                                // add image support
-    ['clean']                                         // remove formatting button
+    [{ 'color': [] }, { 'background': [] }],
+    ['clean'] // remove formatting button
   ]
 };
 
-// Define the formats Quill can use
 const formats = [
-  'header', 'font', 'size',
-  'bold', 'italic', 'underline', 'strike',
-  'blockquote', 'list', 'bullet', 'indent',
+  'header', 'bold', 'italic', 'underline', 'strike',
+  'blockquote', 'code-block', 'list', 'bullet',
   'link', 'image', 'align', 'color', 'background'
 ];
 

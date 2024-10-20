@@ -94,5 +94,22 @@ input:-webkit-autofill:active{
     color: white; /* Text color */
 }
 
+/* Add custom styles for code blocks if not using Tailwind Typography plugin */
+pre {
+    background-color: #2d2d2d;
+    color: #2f496d;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+}
+
+code {
+    background-color: #1e1e1e;
+    color: #016722;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    font-size: 0.9rem;
+}
+
 
   

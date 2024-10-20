@@ -58,7 +58,7 @@ const BlogPost = ({ params }) => {
                 </div>
 
                 <div className="relative mt-10 w-full lg:w-[980px] p-[2px]">
-                    <div className="relative w-full h-0 pb-[40.25%]">
+                    <div className="relative w-full h-0 pb-[53%]">
                         <Image
                             src={blog.blogImage}
                             alt={blog.title}
