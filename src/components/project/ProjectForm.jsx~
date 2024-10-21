@@ -153,7 +153,7 @@ const ProjectForm = () => {
           </div>
 
 
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex flex-col gap-1 w-full pt-1">
             <label className="block text-sm font-medium text-gray-400">Image</label>
             <input
                 type="file"

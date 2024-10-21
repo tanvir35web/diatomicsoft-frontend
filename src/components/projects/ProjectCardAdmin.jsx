@@ -56,8 +56,8 @@ const ProjectCardAdmin = ({ completeProject, coverImage, id, title, description,
 
   return (
     <>
-      <div key={id} className="bg-[#0E0F1D] relative bg-opacity-55 cursor-pointer duration-200 border border-gray-700 hover:border-blue-900 p-2 rounded-lg w-[300px]">
-        <div className="relative w-full h-[150px]">
+      <div key={id} className="bg-[#0E0F1D] relative bg-opacity-55 cursor-pointer duration-200 border border-gray-700 hover:border-blue-900 p-2 rounded-lg w-[450px]">
+        <div className="relative w-full h-[190px]">
           {coverImage ? (
             <Image
               src={coverImage}
