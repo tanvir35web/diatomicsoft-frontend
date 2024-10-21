@@ -115,6 +115,7 @@ export const createBlog = createAsyncThunk(
                     },
                 }
             );
+            dispatch(fetchBlogs());
             return response.data;
         } catch (error) {
             if (error.response && error.response.data) {
@@ -200,17 +201,21 @@ export const updateBlog = createAsyncThunk(
     'blogs/updateBlog',
     async (formData, { dispatch, rejectWithValue }) => {
         try {
-            const id = formData?.id;
+            console.log('FormData:', formData);
+            const id = formData?.get('id'); // Use .get() for FormData
+            console.log(id, 'formDataID');
+
             if (!token) {
                 return rejectWithValue('Authentication token is missing.');
             }
             const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogs/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
                 },
             });
-            return response.data;
             dispatch(fetchBlogs());
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data || error.message);
         }

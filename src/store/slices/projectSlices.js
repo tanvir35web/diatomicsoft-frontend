@@ -62,7 +62,7 @@ export const editProject = createAsyncThunk(
        }
 
       // Retrieve the ID from FormData
-      const projectId = formData?.id;
+      const projectId = formData?.get("id");
       if (!projectId) {
         return rejectWithValue('Project ID is missing.');
       }       
@@ -72,6 +72,7 @@ export const editProject = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data', // Important for file upload
           },
         }
       );
