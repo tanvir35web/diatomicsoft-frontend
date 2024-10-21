@@ -15,8 +15,8 @@ export const navItems = [
     label: "Contact",
     href: "/contact",
   },
-  // {
-  //   label: "Login",
-  //   href: "/login",
-  // }
+  {
+    label: "Login",
+    href: "/login",
+  }
 ];
