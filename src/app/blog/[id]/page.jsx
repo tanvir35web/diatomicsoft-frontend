@@ -1,84 +1,106 @@
-"use client";
+// "use client";
 
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import { useDispatch, useSelector } from "react-redux";
-import { fetchBlogs } from "@/store/slices/blogSlices";
-import formatDate from "@/utils/formatDate";
-import Image from "next/image";
-import DOMPurify from 'dompurify';
+import BlogPostClient from "../BlogPostClient";
 
-
-const BlogPost = ({ params }) => {
-    const { id } = params; // Get the ID from params
-    const dispatch = useDispatch();
-    const { data, status, error } = useSelector((state) => state.blogs);
-
-    const [blog, setBlog] = useState(null); // State to hold the specific blog post
-
-    // Fetch blogs when the component mounts and status is idle
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchBlogs());
-        }
-    }, [status, dispatch]);
-
-    useEffect(() => {
-        // Check if blogs data is available and set the specific blog based on ID
-        if (data && data.data) {
-            const foundBlog = data.data.find((b) => b._id === id); // Assuming _id is the unique identifier
-            setBlog(foundBlog);
-        }
-    }, [data, id]);
-
-    const [sanitizedContent, setSanitizedContent] = useState('');
-
-    useEffect(() => {
-        // Sanitize only on the client-side after mounting
-        if (typeof window !== 'undefined') {
-            setSanitizedContent(DOMPurify.sanitize(blog?.description));
-        }
-    }, [blog?.description]);
-
-    if (status === 'loading') return <p>Loading...</p>;
-    if (status === 'failed') return <p>Error: {error}</p>;
-    if (!blog) return <p>Blog post not found.</p>; 
-
-    return (
-        <>
-            <Head>
-                <title>{blog.title} - My Blog</title>
-                <meta name="description" content={blog.description} />
-            </Head>
-            <div className="container max-w-[1000px] m-auto mt-8 p-4">
-                <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold">{blog.title}</h1>
-                <div className="flex justify-between mt-2">
-                    <p className="mt-2 text-gray-400 text-sm md:text-lg ">Author: {blog.author}</p>
-                    <p className="mt-2 text-gray-400 text-sm md:text-lg">{formatDate(blog.createdAt)}</p>
-                </div>
-
-                <div className="relative mt-10 w-full lg:w-[980px] p-[2px]">
-                    <div className="relative w-full h-0 pb-[53%]">
-                        <Image
-                            src={blog.blogImage}
-                            alt={blog.title}
-                            layout="fill"
-                            objectFit="cover"
-                            quality={100}
-                            className="rounded-lg  md:rounded-[16px] lg:rounded-[24px]"
-                        />
-                    </div>
-                </div>
+// import { useEffect, useState } from 'react';
+// import Head from 'next/head';
+// import { useDispatch, useSelector } from "react-redux";
+// import { fetchBlogs } from "@/store/slices/blogSlices";
+// import formatDate from "@/utils/formatDate";
+// import Image from "next/image";
+// import DOMPurify from 'dompurify';
 
 
-                <div
-                    className="prose prose-sm md:prose-lg mt-10 text-justify w-full max-w-none"
-                    dangerouslySetInnerHTML={{__html: sanitizedContent}}
-                ></div>
+// const BlogPost = ({ params }) => {
+//     const { id } = params; // Get the ID from params
+//     const dispatch = useDispatch();
+//     const { data, status, error } = useSelector((state) => state.blogs);
 
-            </div>
-        </>
-    );
-};
+//     const [blog, setBlog] = useState(null); // State to hold the specific blog post
 
-export default BlogPost;
+//     // Fetch blogs when the component mounts and status is idle
+//     useEffect(() => {
+//         if (status === 'idle') {
+//             dispatch(fetchBlogs());
+//         }
+//     }, [status, dispatch]);
+
+//     useEffect(() => {
+//         // Check if blogs data is available and set the specific blog based on ID
+//         if (data && data.data) {
+//             const foundBlog = data.data.find((b) => b._id === id); // Assuming _id is the unique identifier
+//             setBlog(foundBlog);
+//         }
+//     }, [data, id]);
+
+//     const [sanitizedContent, setSanitizedContent] = useState('');
+
+//     useEffect(() => {
+//         // Sanitize only on the client-side after mounting
+//         if (typeof window !== 'undefined') {
+//             setSanitizedContent(DOMPurify.sanitize(blog?.description));
+//         }
+//     }, [blog?.description]);
+
+//     if (status === 'loading') return <p>Loading...</p>;
+//     if (status === 'failed') return <p>Error: {error}</p>;
+//     if (!blog) return <p>Blog post not found.</p>; 
+
+//     return (
+//         <>
+//             <Head>
+//                 <title>{blog.title} - My Blog</title>
+//                 <meta name="description" content={blog.description} />
+//             </Head>
+//             <div className="container max-w-[1000px] m-auto mt-8 p-4">
+//                 <h1 className="text-3xl md:text-3xl lg:text-4xl font-bold">{blog.title}</h1>
+//                 <div className="flex justify-between mt-2">
+//                     <p className="mt-2 text-gray-400 text-sm md:text-lg ">Author: {blog.author}</p>
+//                     <p className="mt-2 text-gray-400 text-sm md:text-lg">{formatDate(blog.createdAt)}</p>
+//                 </div>
+
+//                 <div className="relative mt-10 w-full lg:w-[980px] p-[2px]">
+//                     <div className="relative w-full h-0 pb-[53%]">
+//                         <Image
+//                             src={blog.blogImage}
+//                             alt={blog.title}
+//                             layout="fill"
+//                             objectFit="cover"
+//                             quality={100}
+//                             className="rounded-lg  md:rounded-[16px] lg:rounded-[24px]"
+//                         />
+//                     </div>
+//                 </div>
+
+
+//                 <div
+//                     className="prose prose-sm md:prose-lg mt-10 text-justify w-full max-w-none"
+//                     dangerouslySetInnerHTML={{__html: sanitizedContent}}
+//                 ></div>
+
+//             </div>
+//         </>
+//     );
+// };
+
+// export default BlogPost;
+
+
+// /blog/[id].js (Server Component)
+
+export async function generateStaticParams() {
+    // Fetch or hardcode the IDs of the blog posts you want to generate statically
+    const ids = ["671cc9dbb87c60ce25682d49", "671928e6beeed6660aea3d5e", "67156341745a092642228b67", "67151e2209add16ebd01411e", "671295a4a6bafa7b4958199d", "671283fc1f92cf64ebdd39d5", "67126c2da7cdbdb225b76eec"];
+
+    return ids.map((id) => ({
+        id,
+    }));
+}
+
+// Import the client component
+
+export default function BlogPost({ params }) {
+    const { id } = params;
+
+    return <BlogPostClient id={id} />;
+}

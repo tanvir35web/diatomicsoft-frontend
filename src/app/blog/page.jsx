@@ -28,8 +28,7 @@ const Blogs = () => {
 
   return (
     <div>
-      <p className="text-5xl font-bold text-center mt-6 pb-10">This is the blog section</p>
-      <div className="flex justify-center gap-2 flex-wrap px-2">
+      <div className="flex justify-center gap-2 flex-wrap px-2 py-4">
         {blogs && blogs.length > 0 ? (
           blogs.map((blog) => {
             // Debugging: Log the blog ID

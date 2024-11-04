@@ -39,7 +39,7 @@ const ContactSection = () => {
     };
 
     return (
-        <section className="container mx-auto py-12 px-4 md:px-8 lg:px-16 bg-gray-900 rounded-3xl mt-10">
+        <section className="container mx-auto py-12 px-4 md:px-8 lg:px-16 bg-gray-900 rounded-3xl mt-10 mb-6">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 px-1 md:px-[50px]">
                 {/* Image Section */}
                 <div className="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[500px] mx-auto lg:mx-0">

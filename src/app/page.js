@@ -23,7 +23,7 @@ export default function Home() {
   return (
       <div className="px-4 font-poppins">
           <HeroSection scrollToSection={scrollToSection}/>
-          <div ref={nextSectionRef} className="pt-[80px]">
+          <div ref={nextSectionRef} className="pt-0 md:pt-[80px]">
               <DigitalProducts
                   imagePath={"/stock-images/3d-illustration-working.webp"}
                   title={" We craft digital products"}
@@ -34,7 +34,7 @@ export default function Home() {
           </div>
           <OverViewSection/>
           <ShowcaseSection/>
-          <div className="pt-[80px] pb-6">
+          <div className="pt-0 md:pt-[80px] pb-0 md:pb-6">
               <DigitalProducts
                   imagePath={"/stock-images/3d-blog.webp"}
                   title={" Stay Updated with Latest Blogs"}

@@ -74,7 +74,7 @@ const ShowcaseSection = () => {
             {status === 'loading' && <p>Loading...</p>}
             {status === 'failed' && <p>Error: {error.message}</p>}
             {/* Tabs */}
-            <div className="flex justify-center m-auto flex-wrap gap-2 mb-10 md:overflow-x-auto px-2 py-2 bg-gray-800 p-3 rounded-full max-w-max">
+            <div className="flex justify-center m-auto flex-wrap gap-2 mb-10 md:overflow-x-auto px-2 py-4 md:py-2 bg-gray-800 p-3 rounded-xl md:rounded-full max-w-max">
                 {projects && projects.slice(0, 5).map((project, index) => (
                     <button
                         key={project.title}
